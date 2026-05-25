@@ -12,6 +12,7 @@
   @param {string} [localization] - Captured HTML for language/country selector
   @param {string} [search] - Captured HTML for search input
   @param {string} [drawer_search] - Captured HTML for drawer-based search
+  @param {string} [secondary_menu] - Captured HTML for secondary navigation menu (right side)
 {% enddoc %}
 
 {%- liquid
@@ -32,7 +33,7 @@
 
     case item
       when 'actions'
-        assign item_column = 'right'
+        assign item_column = settings['actions_position'] | default: 'right'
     endcase
 
     if item_row == row
@@ -92,3 +93,9 @@
     </div>
   {%- endif -%}
 {%- endfor -%}
+
+{%- if secondary_menu != blank -%}
+  <div class="header__column header__column--right header__secondary-menu-wrapper mobile:hidden">
+    {{ secondary_menu }}
+  </div>
+{%- endif -%}

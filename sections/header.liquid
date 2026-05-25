@@ -68,6 +68,28 @@
     render 'header-actions', customer_account_menu: section.settings.customer_account_menu, display_style: section.settings.actions_display_style, section: section
   endcapture
 
+  assign secondary_menu_handle = section.settings.secondary_menu
+  capture secondary_menu_markup
+    if secondary_menu_handle != blank
+      assign secondary_links = linklists[secondary_menu_handle].links
+      if secondary_links.size > 0
+        echo '<nav class="header__secondary-menu mobile:hidden" aria-label="Secondary navigation">'
+        echo '<ul class="header__secondary-menu-list">'
+        for link in secondary_links
+          echo '<li class="header__secondary-menu-item">'
+          echo '<a href="'
+          echo link.url
+          echo '" class="header__secondary-menu-link">'
+          echo link.title | escape
+          echo '</a>'
+          echo '</li>'
+        endfor
+        echo '</ul>'
+        echo '</nav>'
+      endif
+    endif
+  endcapture
+
   if shop.customer_accounts_enabled
     assign search_class = 'search-action--hidden-on-drawer'
   endif
@@ -373,7 +395,8 @@
         actions: actions,
         localization: localization_markup,
         search: search,
-        drawer_search: drawer_search
+        drawer_search: drawer_search,
+        secondary_menu: secondary_menu_markup
       %}
     {% endcapture %}
 
@@ -1111,6 +1134,75 @@
     font-family: var(--menu-localization-font);
     font-size: var(--menu-localization-font-size);
   }
+
+  /* Nav link font-size override to match Figma 17px */
+  .menu-list__link-title {
+    font-size: 1.0625rem;
+  }
+
+  /* Nav link gap override to match Figma 30px itemSpacing */
+  .overflow-menu::part(list) {
+    gap: 30px;
+  }
+
+  /* Secondary menu styles */
+  .header__secondary-menu-wrapper {
+    gap: var(--gap-xl);
+  }
+
+  .header__secondary-menu-list {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__secondary-menu-item {
+    white-space: nowrap;
+  }
+
+  .header__secondary-menu-link {
+    font-size: 1.0625rem;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    text-decoration: none;
+    color: var(--color-foreground);
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .header__secondary-menu-link:hover {
+    opacity: var(--opacity-subdued-text);
+    transition: opacity var(--animation-speed) var(--animation-easing);
+  }
+
+  /* Mobile column reordering: actions left, drawer/hamburger right */
+  @media screen and (max-width: 749px) {
+    .header__columns header-actions {
+      grid-area: leftA;
+    }
+
+    .header__columns .header__icon--menu,
+    .header__columns header-drawer {
+      grid-area: rightB;
+    }
+
+    .header__secondary-menu,
+    .header__secondary-menu-wrapper {
+      display: none;
+    }
+  }
+
+  #header-component[data-menu-style='drawer'] .header__columns header-actions {
+    grid-area: leftA;
+  }
+
+  #header-component[data-menu-style='drawer'] .header__columns .header__icon--menu,
+  #header-component[data-menu-style='drawer'] .header__columns header-drawer {
+    grid-area: rightB;
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
@@ -1191,6 +1283,31 @@
         }
       ],
       "default": "top"
+    },
+    {
+      "type": "select",
+      "id": "actions_position",
+      "label": "Actions position",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:options.left"
+        },
+        {
+          "value": "right",
+          "label": "t:options.right"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Secondary navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "secondary_menu",
+      "label": "Secondary menu"
     },
     {
       "type": "header",

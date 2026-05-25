@@ -34,7 +34,34 @@
       {% content_for 'blocks' %}
     </div>
   </announcement-bar-component>
+
+  <button class="announcement-bar__close-btn" type="button" aria-label="Dismiss announcement">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
 </aside>
+
+<script>
+  (function() {
+    var STORAGE_KEY = 'announcement-bar-dismissed';
+    var section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+
+    if (sessionStorage.getItem(STORAGE_KEY) === '{{ section.id }}') {
+      section.style.display = 'none';
+      return;
+    }
+
+    var closeBtn = section.querySelector('.announcement-bar__close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        section.style.display = 'none';
+        sessionStorage.setItem(STORAGE_KEY, '{{ section.id }}');
+      });
+    }
+  })();
+</script>
 
 {% stylesheet %}
   .announcement-bar {
@@ -118,6 +145,64 @@
   .announcement-bar__link {
     position: absolute;
     inset: 0;
+  }
+
+  /* Close/dismiss button */
+  .announcement-bar {
+    position: relative;
+  }
+
+  .announcement-bar__close-btn {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--color-foreground);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .announcement-bar__close-btn svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .announcement-bar__close-btn:hover {
+    opacity: var(--opacity-subdued-text, 0.7);
+  }
+
+  /* Ensure text doesn't overlap with close button */
+  .announcement-bar__slides {
+    padding-inline-end: 40px;
+  }
+
+  /* Mobile overrides for announcement bar */
+  @media screen and (max-width: 749px) {
+    .announcement-bar .announcement-bar__slide,
+    .announcement-bar__slides .announcement-bar__text {
+      font-size: 0.75rem;
+      line-height: 1.17;
+    }
+
+    .announcement-bar.spacing-style {
+      --padding-block-start: 14px;
+      --padding-block-end: 14px;
+    }
+
+    .announcement-bar__close-btn svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    .announcement-bar__close-btn {
+      right: 12px;
+    }
   }
 {% endstylesheet %}
 
