@@ -1,0 +1,145 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} clean-water-clean-mind color-{{ section.settings.color_scheme }} spacing-style"
+  style="{%- render 'spacing-style', settings: section.settings -%}"
+>
+  <div class="clean-water-clean-mind__content">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="clean-water-clean-mind__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="clean-water-clean-mind__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .clean-water-clean-mind__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    max-width: 758px;
+    margin: 0 auto;
+    padding-inline: var(--page-margin, 16px);
+
+    @media screen and (min-width: 750px) {
+      gap: 16px;
+    }
+  }
+
+  .clean-water-clean-mind__eyebrow {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.52px;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 18px;
+      line-height: 26px;
+      letter-spacing: 0.72px;
+    }
+  }
+
+  .clean-water-clean-mind__heading {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 34px;
+    letter-spacing: -0.52px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 42px;
+      line-height: 55px;
+      letter-spacing: -0.84px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Clean Water Clean Mind",
+  "tag": "section",
+  "class": "clean-water-clean-mind-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "CLEAN WATER, CLEAR MIND"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Dedicated To Your Health & Safety"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full width"
+        },
+        {
+          "value": "page-width",
+          "label": "Page width"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Clean Water Clean Mind"
+    }
+  ]
+}
+{% endschema %}

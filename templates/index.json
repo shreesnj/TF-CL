@@ -106,6 +106,17 @@
         "padding-block-end": 0
       }
     },
+    "clean_water_headline": {
+      "type": "clean-water-clean-mind",
+      "settings": {
+        "eyebrow": "CLEAN WATER, CLEAR MIND",
+        "heading": "Dedicated To Your Health & Safety",
+        "color_scheme": "scheme-1",
+        "section_width": "page-width",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
     "filtration_tech_Xk9mR2": {
       "type": "filtration-technology",
       "blocks": {
@@ -350,6 +361,7 @@
   "order": [
     "hero_jVaWmY",
     "experience_RkX7mQ",
+    "clean_water_headline",
     "filtration_tech_Xk9mR2",
     "product_list_fa6P9H"
   ]
