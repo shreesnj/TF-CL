@@ -371,6 +371,26 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "quiz": {
+      "type": "quiz",
+      "settings": {
+        "subtitle": "TAKE THE QUIZ",
+        "heading": "Discover what's in your water",
+        "body": "Tap the button below to see the specific contaminants in your local water supply (and how to best protect yourself and your loved ones).",
+        "contaminants_label": "CONTAMINANTS WE REMOVE: NEW YORK",
+        "contaminants_list": "Haloacetic acids (HAA5), Chromium, Chloroform, Trichloroacetic Acid, Bromoform, 1,4-Dioxane + 5 more.",
+        "button_text": "Take the Quiz",
+        "gauge_number": "14",
+        "gauge_label": "TOTAL CONTAMINANTS FOUND IN:",
+        "city_name": "New York City",
+        "background_image": "shopify://shop_images/vid-bg-mobile-18492609.png",
+        "section_width": "full-width",
+        "color_scheme": "scheme-3",
+        "media_color_scheme": "scheme-5",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
@@ -379,6 +399,7 @@
     "clean_water_headline",
     "filtration_tech_Xk9mR2",
     "product_list_fa6P9H",
-    "shop_by_system"
+    "shop_by_system",
+    "quiz"
   ]
 }
