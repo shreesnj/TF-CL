@@ -1,0 +1,413 @@
+{% liquid
+  assign opacity_decimal = section.settings.gradient_opacity | divided_by: 100.0
+  assign gradient_start_alpha = section.settings.gradient_start | color_modify: 'alpha', opacity_decimal
+  assign gradient_end_alpha = section.settings.gradient_end | color_modify: 'alpha', opacity_decimal
+%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} experience color-{{ section.settings.color_scheme }} spacing-style"
+  style="
+    {%- render 'spacing-style', settings: section.settings -%}
+    --experience-content-gap: {{ section.settings.content_gap }}px;
+  "
+>
+  {%- if section.settings.subtitle != blank or section.settings.title != blank -%}
+    <div class="experience__headline">
+      {%- if section.settings.subtitle != blank -%}
+        <p class="experience__headline-subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="experience__headline-title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="experience__split">
+    <div class="experience__image-wrapper">
+      {%- if section.settings.image != blank -%}
+        {%- assign sizes_val = '(min-width: 750px) 50vw, 100vw' -%}
+        {{
+          section.settings.image
+          | image_url: width: section.settings.image.width
+          | image_tag:
+            sizes: sizes_val,
+            widths: '354,550,750,774,1100,1500',
+            loading: 'lazy',
+            class: 'experience__image',
+            alt: section.settings.image.alt
+        }}
+      {%- endif -%}
+    </div>
+    <div class="experience__promo">
+      <div class="experience__promo-content">
+        <div class="experience__promo-text-group">
+          {%- if section.settings.promo_subtitle != blank -%}
+            <p class="experience__promo-subtitle">{{ section.settings.promo_subtitle }}</p>
+          {%- endif -%}
+          {%- if section.settings.promo_heading != blank -%}
+            <h3 class="experience__promo-heading">{{ section.settings.promo_heading }}</h3>
+          {%- endif -%}
+          {%- if section.settings.promo_body != blank -%}
+            <p class="experience__promo-body">{{ section.settings.promo_body }}</p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.button_text != blank -%}
+          <div class="experience__cta-wrapper">
+            <a
+              {% if section.settings.button_url != blank %}
+                href="{{ section.settings.button_url }}"
+              {% else %}
+                role="link"
+                aria-disabled="true"
+              {% endif %}
+              class="button experience__cta"
+            >
+              {{ section.settings.button_text }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% style %}
+  #shopify-section-{{ section.id }} .experience__promo {
+    background: linear-gradient(90deg, {{ gradient_start_alpha }} 0%, {{ gradient_end_alpha }} 100%);
+  }
+{% endstyle %}
+
+{% stylesheet %}
+  .experience__headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    max-width: var(--normal-page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin, 16px);
+    padding-block-end: var(--experience-content-gap, 40px);
+
+    @media screen and (min-width: 750px) {
+      gap: 16px;
+    }
+  }
+
+  .experience__headline-subtitle {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.52px;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 18px;
+      line-height: 26px;
+      letter-spacing: 0.72px;
+    }
+  }
+
+  .experience__headline-title {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 34px;
+    letter-spacing: -0.52px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 42px;
+      line-height: 55px;
+      letter-spacing: -0.84px;
+    }
+  }
+
+  .experience__split {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+
+    @media screen and (min-width: 750px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .experience__image-wrapper {
+    overflow: hidden;
+    aspect-ratio: 354 / 318;
+
+    @media screen and (min-width: 750px) {
+      aspect-ratio: unset;
+    }
+  }
+
+  .experience__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .experience__promo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 32px 16px;
+
+    @media screen and (min-width: 750px) {
+      padding: 40px;
+    }
+  }
+
+  .experience__promo-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+
+    @media screen and (min-width: 750px) {
+      max-width: 492px;
+      gap: 32px;
+    }
+  }
+
+  .experience__promo-text-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .experience__promo-subtitle {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.52px;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 18px;
+      line-height: 26px;
+      letter-spacing: 0.72px;
+    }
+  }
+
+  .experience__promo-heading {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 29px;
+    letter-spacing: -0.22px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 36px;
+      line-height: 47px;
+      letter-spacing: -0.36px;
+    }
+  }
+
+  .experience__promo-body {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.14px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 18px;
+      line-height: 25px;
+      letter-spacing: 0;
+    }
+  }
+
+  .experience__cta {
+    border-radius: 60px;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 10px 24px 12px;
+
+    @media screen and (min-width: 750px) {
+      border-radius: 57px;
+      font-size: 16px;
+      line-height: 23px;
+      padding: 10px 34px 13px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Experience",
+  "tag": "section",
+  "class": "experience-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "TITLE GOES HERE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Experience Best-in-Class Filtration"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Promo content"
+    },
+    {
+      "type": "text",
+      "id": "promo_subtitle",
+      "label": "Promo subtitle",
+      "default": "40oz Stainless Filtered Water Bottle"
+    },
+    {
+      "type": "text",
+      "id": "promo_heading",
+      "label": "Promo heading",
+      "default": "Our biggest (and best bottle) just dropped"
+    },
+    {
+      "type": "textarea",
+      "id": "promo_body",
+      "label": "Promo body",
+      "default": "Go big with the bottle designed for more freedom and fewer refills. The comfort-grip handle makes it easy to grab and go, it fits standard cup holders like a glove, and it cleans every drop."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop 42oz Now"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Gradient"
+    },
+    {
+      "type": "color",
+      "id": "gradient_start",
+      "label": "Gradient start",
+      "default": "#C1EFFA"
+    },
+    {
+      "type": "color",
+      "id": "gradient_end",
+      "label": "Gradient end",
+      "default": "#8DCEF9"
+    },
+    {
+      "type": "range",
+      "id": "gradient_opacity",
+      "label": "Gradient opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Headline gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full width"
+        },
+        {
+          "value": "page-width",
+          "label": "Page width"
+        }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Experience"
+    }
+  ]
+}
+{% endschema %}
