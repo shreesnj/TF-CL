@@ -1,0 +1,493 @@
+{% liquid
+  assign collection_list = section.settings.collection_list
+  assign slide_count = collection_list.count | default: 0
+  assign columns = section.settings.columns
+  assign columns_gap = section.settings.columns_gap
+  assign mobile_card_size = section.settings.mobile_card_size
+
+  if section.settings.section_width == 'page-width'
+    assign slideshow_gutters = 'start end'
+  else
+    assign slideshow_gutters = null
+  endif
+
+  assign show_arrows = false
+  if section.settings.icons_style != 'none'
+    assign show_arrows = true
+  endif
+%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    shop-by-system
+    color-{{ section.settings.color_scheme }}
+    spacing-style
+  "
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    --shop-by-system-columns: {{ columns }};
+    --shop-by-system-gap-desktop: {{ columns_gap }}px;
+    --shop-by-system-mobile-card-size: {{ mobile_card_size }};
+  "
+>
+  {% capture header_content %}
+    <div class="shop-by-system__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="shop-by-system__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if show_arrows -%}
+        <div class="shop-by-system__arrows">
+          {%- render 'slideshow-arrow', action: 'previous', icon_style: section.settings.icons_style, icon_shape: section.settings.icons_shape -%}
+          {%- render 'slideshow-arrow', action: 'next', icon_style: section.settings.icons_style, icon_shape: section.settings.icons_shape -%}
+        </div>
+      {%- endif -%}
+    </div>
+  {% endcapture %}
+
+  {% capture slides %}
+    {%- if collection_list != blank -%}
+      {%- for collection in collection_list -%}
+        {% capture slide_content %}
+          <a href="{{ collection.url }}" class="shop-by-system__card">
+            <div class="shop-by-system__card-image">
+              {%- if collection.featured_image != blank -%}
+                {%- assign sizes_val = '(min-width: 750px) ' | append: 100 | append: 'vw' -%}
+                {{
+                  collection.featured_image
+                  | image_url: width: collection.featured_image.width
+                  | image_tag:
+                    sizes: sizes_val,
+                    widths: '292,400,494,588,800,988',
+                    loading: 'lazy',
+                    class: 'shop-by-system__image',
+                    alt: collection.featured_image.alt
+                }}
+              {%- else -%}
+                {{ 'collection-1' | placeholder_svg_tag: 'shop-by-system__placeholder' }}
+              {%- endif -%}
+            </div>
+            <span class="shop-by-system__card-title">{{ collection.title }}</span>
+          </a>
+        {% endcapture %}
+
+        {%- render 'slideshow-slide',
+          index: forloop.index0,
+          children: slide_content,
+          class: 'shop-by-system__slide'
+        -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..4) -%}
+        {% capture slide_content %}
+          <div class="shop-by-system__card">
+            <div class="shop-by-system__card-image">
+              {{ 'collection-1' | placeholder_svg_tag: 'shop-by-system__placeholder' }}
+            </div>
+            <span class="shop-by-system__card-title">Collection {{ i }}</span>
+          </div>
+        {% endcapture %}
+
+        {%- render 'slideshow-slide',
+          index: forloop.index0,
+          children: slide_content,
+          class: 'shop-by-system__slide'
+        -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {% endcapture %}
+
+  {% liquid
+    assign effective_slide_count = slide_count
+    if effective_slide_count == 0
+      assign effective_slide_count = 4
+    endif
+  %}
+
+  {% capture controls %}
+    {%- render 'slideshow-controls', style: 'counter', item_count: effective_slide_count -%}
+  {% endcapture %}
+
+  {%- render 'slideshow',
+    slides: slides,
+    header: header_content,
+    class: 'shop-by-system__slideshow',
+    show_arrows: false,
+    controls: controls,
+    auto_hide_controls: false,
+    infinite: false,
+    initial_slide: 0,
+    slide_count: effective_slide_count,
+    slideshow_gutters: slideshow_gutters
+  -%}
+</div>
+
+{% stylesheet %}
+  .shop-by-system {
+    --shop-by-system-gap: 16px;
+
+    @media screen and (min-width: 750px) {
+      --shop-by-system-gap: var(--shop-by-system-gap-desktop, 32px);
+    }
+  }
+
+  .shop-by-system__slideshow {
+    width: 100%;
+    position: relative;
+    container-type: inline-size;
+    container-name: shop-by-system-carousel;
+    gap: 24px;
+
+    @media screen and (min-width: 750px) {
+      gap: 32px;
+    }
+  }
+
+  .shop-by-system__slideshow slideshow-container {
+    background-color: transparent;
+  }
+
+  .shop-by-system__slideshow slideshow-slides {
+    gap: var(--shop-by-system-gap);
+  }
+
+  .shop-by-system__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .shop-by-system__heading {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 34px;
+    letter-spacing: -0.52px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 42px;
+      line-height: 55px;
+      letter-spacing: -0.84px;
+    }
+  }
+
+  .shop-by-system__arrows {
+    display: none;
+    align-items: center;
+    gap: 19px;
+
+    @media screen and (min-width: 750px) {
+      display: flex;
+    }
+
+    .slideshow-control {
+      pointer-events: auto;
+      opacity: 1;
+      padding: 0;
+      width: 50px;
+      height: 50px;
+      min-height: unset;
+      min-width: unset;
+      color: var(--color-foreground);
+    }
+
+    .slideshow-control.slideshow-control--shape-circle {
+      background-color: #FFFFFF;
+      color: #202635;
+      border-radius: 50%;
+    }
+
+    .slideshow-control.slideshow-control--shape-square {
+      background-color: #FFFFFF;
+      color: #202635;
+    }
+
+    .slideshow-control[disabled] {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  .shop-by-system__slide {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+  }
+
+  @container shop-by-system-carousel (max-width: 749px) {
+    .shop-by-system__slide {
+      --slide-width: clamp(150px, var(--shop-by-system-mobile-card-size, 44cqw), 450px);
+    }
+  }
+
+  @container shop-by-system-carousel (min-width: 750px) {
+    .shop-by-system__slide {
+      --slide-width: calc(
+        (100% - (var(--shop-by-system-gap) * (var(--shop-by-system-columns) - 1))) /
+          var(--shop-by-system-columns)
+      );
+    }
+  }
+
+  .shop-by-system__card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-decoration: none;
+    color: inherit;
+
+    @media screen and (min-width: 750px) {
+      gap: 32px;
+    }
+  }
+
+  .shop-by-system__card-image {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: #D3D8DD;
+  }
+
+  .shop-by-system__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .shop-by-system__placeholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .shop-by-system__card-title {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 29px;
+    letter-spacing: -0.22px;
+    color: var(--color-foreground);
+
+    @media screen and (min-width: 750px) {
+      font-size: 36px;
+      line-height: 47px;
+      letter-spacing: -0.36px;
+    }
+  }
+
+  .shop-by-system__slideshow slideshow-controls {
+    mix-blend-mode: normal;
+    min-height: unset;
+    justify-content: flex-end;
+  }
+
+  .shop-by-system__slideshow .slideshow-controls__counter {
+    background-color: transparent;
+    backdrop-filter: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    font-family: var(--font-subheading--family, monospace);
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-foreground);
+
+    @media screen and (min-width: 750px) {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.56px;
+    }
+
+    .slash {
+      color: var(--color-foreground);
+      opacity: 0.4;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shop by System",
+  "tag": "section",
+  "class": "shop-by-system-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by System"
+    },
+    {
+      "type": "header",
+      "content": "Collections"
+    },
+    {
+      "type": "collection_list",
+      "id": "collection_list",
+      "label": "Collections"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "label": "Column gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "mobile_card_size",
+      "label": "Mobile card size",
+      "options": [
+        {
+          "value": "60cqw",
+          "label": "Large"
+        },
+        {
+          "value": "44cqw",
+          "label": "Small"
+        }
+      ],
+      "default": "44cqw"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "select",
+      "id": "icons_style",
+      "label": "Arrow style",
+      "options": [
+        {
+          "value": "arrow",
+          "label": "Arrows"
+        },
+        {
+          "value": "chevron",
+          "label": "Chevrons"
+        },
+        {
+          "value": "arrows_large",
+          "label": "Arrows large"
+        },
+        {
+          "value": "chevron_large",
+          "label": "Chevrons large"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "arrow"
+    },
+    {
+      "type": "select",
+      "id": "icons_shape",
+      "label": "Arrow background",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        }
+      ],
+      "default": "circle",
+      "visible_if": "{{ section.settings.icons_style != 'none' }}"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "Page width"
+        },
+        {
+          "value": "full-width",
+          "label": "Full width"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by System"
+    }
+  ]
+}
+{% endschema %}

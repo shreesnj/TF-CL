@@ -163,6 +163,21 @@
         "padding-block-end": 72
       }
     },
+    "shop_by_system": {
+      "type": "shop-by-system",
+      "settings": {
+        "heading": "Shop by System",
+        "columns": 4,
+        "columns_gap": 32,
+        "mobile_card_size": "44cqw",
+        "icons_style": "arrow",
+        "icons_shape": "circle",
+        "color_scheme": "scheme-1",
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -363,6 +378,7 @@
     "experience_RkX7mQ",
     "clean_water_headline",
     "filtration_tech_Xk9mR2",
-    "product_list_fa6P9H"
+    "product_list_fa6P9H",
+    "shop_by_system"
   ]
 }
