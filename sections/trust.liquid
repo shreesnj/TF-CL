@@ -1,0 +1,599 @@
+{% liquid
+  assign opacity_decimal = section.settings.gradient_opacity | divided_by: 100.0
+  assign gradient_start_alpha = section.settings.gradient_start | color_modify: 'alpha', opacity_decimal
+  assign gradient_mid_alpha = section.settings.gradient_mid | color_modify: 'alpha', opacity_decimal
+  assign gradient_end_alpha = section.settings.gradient_end | color_modify: 'alpha', opacity_decimal
+%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} trust color-{{ section.settings.color_scheme }} spacing-style"
+  style="{%- render 'spacing-style', settings: section.settings -%}"
+>
+  <div class="trust__gradient" aria-hidden="true"></div>
+
+  <div class="trust__content">
+    {%- if section.settings.eyebrow_text != blank or section.settings.heading != blank -%}
+      <div class="trust__headline">
+        {%- if section.settings.eyebrow_text != blank -%}
+          <p class="trust__eyebrow">{{ section.settings.eyebrow_text }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="trust__heading">
+            {%- if section.settings.heading_highlight != blank -%}
+              {%- assign heading_parts = section.settings.heading | split: section.settings.heading_highlight -%}
+              {%- for part in heading_parts -%}
+                {{- part -}}
+                {%- unless forloop.last -%}
+                  <span class="trust__heading-highlight" style="color: {{ section.settings.highlight_color }};">{{ section.settings.heading_highlight }}</span>
+                {%- endunless -%}
+              {%- endfor -%}
+            {%- else -%}
+              {{ section.settings.heading }}
+            {%- endif -%}
+          </h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.button_text != blank -%}
+      <div class="trust__cta-wrapper">
+        <a
+          {% if section.settings.button_url != blank %}
+            href="{{ section.settings.button_url }}"
+          {% else %}
+            role="link"
+            aria-disabled="true"
+          {% endif %}
+          class="trust__cta"
+        >
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {%- endif -%}
+
+    <div class="trust__images">
+      {%- if section.settings.image_left != blank -%}
+        <div class="trust__image-side trust__image-side--left">
+          <div class="trust__image-frame trust__image-frame--side">
+            {%- assign left_sizes = '(min-width: 750px) 369px, 229px' -%}
+            {{
+              section.settings.image_left
+              | image_url: width: section.settings.image_left.width
+              | image_tag:
+                sizes: left_sizes,
+                widths: '229,369,458,738',
+                loading: 'lazy',
+                class: 'trust__image',
+                alt: section.settings.image_left.alt
+            }}
+          </div>
+          {%- if section.settings.name_left != blank -%}
+            <p class="trust__image-name">{{ section.settings.name_left }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="trust__arrow" aria-hidden="true">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 5H1M1 5L5 1M1 5L5 9" stroke="#202635" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      {%- if section.settings.image_center != blank -%}
+        <div class="trust__image-main">
+          <div class="trust__image-frame trust__image-frame--center">
+            {%- assign center_sizes = '(min-width: 750px) 500px, 294px' -%}
+            {{
+              section.settings.image_center
+              | image_url: width: section.settings.image_center.width
+              | image_tag:
+                sizes: center_sizes,
+                widths: '294,500,588,1000',
+                loading: 'lazy',
+                class: 'trust__image',
+                alt: section.settings.image_center.alt
+            }}
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="trust__arrow" aria-hidden="true">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 5H11M11 5L7 1M11 5L7 9" stroke="#202635" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      {%- if section.settings.image_right != blank -%}
+        <div class="trust__image-side trust__image-side--right">
+          <div class="trust__image-frame trust__image-frame--side">
+            {%- assign right_sizes = '(min-width: 750px) 369px, 229px' -%}
+            {{
+              section.settings.image_right
+              | image_url: width: section.settings.image_right.width
+              | image_tag:
+                sizes: right_sizes,
+                widths: '229,369,458,738',
+                loading: 'lazy',
+                class: 'trust__image',
+                alt: section.settings.image_right.alt
+            }}
+          </div>
+          {%- if section.settings.name_right != blank -%}
+            <p class="trust__image-name">{{ section.settings.name_right }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="trust__testimonial">
+      <img src="{{ 'stars.svg' | asset_url }}" class="trust__stars" alt="5 star rating" width="110" height="21">
+      {%- if section.settings.testimonial_text != blank -%}
+        <blockquote class="trust__quote">&ldquo;{{ section.settings.testimonial_text }}&rdquo;</blockquote>
+      {%- endif -%}
+      {%- if section.settings.reviewer_name != blank -%}
+        <p class="trust__reviewer">{{ section.settings.reviewer_name }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% style %}
+  #shopify-section-{{ section.id }} .trust__gradient {
+    background: linear-gradient(270deg, {{ gradient_start_alpha }} 0%, {{ gradient_mid_alpha }} 51%, {{ gradient_end_alpha }} 100%);
+  }
+{% endstyle %}
+
+{% stylesheet %}
+  /* Root layout */
+  .trust {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Gradient overlay */
+  .trust__gradient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* Content wrapper */
+  .trust__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Headline */
+  .trust__headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding-inline: var(--page-margin, 16px);
+    order: 1;
+
+    @media screen and (min-width: 750px) {
+      gap: 16px;
+    }
+  }
+
+  .trust__eyebrow {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.52px;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 18px;
+      line-height: 26px;
+      letter-spacing: 0.72px;
+    }
+  }
+
+  .trust__heading {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 34px;
+    letter-spacing: -0.52px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 42px;
+      line-height: 55px;
+      letter-spacing: -0.84px;
+    }
+  }
+
+  /* CTA button */
+  .trust__cta-wrapper {
+    order: 2;
+    margin-top: 8px;
+    padding-inline: var(--page-margin, 16px);
+
+    @media screen and (min-width: 750px) {
+      order: 4;
+      margin-top: 32px;
+    }
+  }
+
+  .trust__cta {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 60px;
+    padding: 10px 24px 12px;
+    background-color: var(--color-primary-button-background);
+    color: var(--color-primary-button-text);
+    border: 1px solid var(--color-primary-button-border);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+    @media screen and (min-width: 750px) {
+      font-size: 16px;
+      line-height: 23px;
+      border-radius: 57px;
+      padding: 10px 34px 13px;
+    }
+
+    &:hover {
+      background-color: var(--color-primary-button-hover-background);
+      color: var(--color-primary-button-hover-text);
+      border-color: var(--color-primary-button-hover-border);
+    }
+  }
+
+  /* Images strip */
+  .trust__images {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 3;
+    margin-top: 24px;
+    width: 100%;
+
+    @media screen and (min-width: 750px) {
+      order: 2;
+      margin-top: 56px;
+    }
+  }
+
+  /* Image frames */
+  .trust__image-frame {
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .trust__image-frame--center {
+    width: 294px;
+    height: 294px;
+
+    @media screen and (min-width: 750px) {
+      width: 500px;
+      height: 500px;
+    }
+  }
+
+  .trust__image-frame--side {
+    width: 229px;
+    height: 229px;
+
+    @media screen and (min-width: 750px) {
+      width: 369px;
+      height: 369px;
+    }
+  }
+
+  .trust__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Side image groups */
+  .trust__image-side,
+  .trust__image-main {
+    flex-shrink: 0;
+  }
+
+  /* Image names (desktop only) */
+  .trust__image-name {
+    display: none;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.56px;
+    text-transform: uppercase;
+    color: #797D86;
+    margin: 8px 0 0;
+
+    @media screen and (min-width: 750px) {
+      display: block;
+    }
+  }
+
+  /* Decorative carousel arrows (desktop only) */
+  .trust__arrow {
+    display: none;
+
+    @media screen and (min-width: 750px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #FFFFFF;
+      flex-shrink: 0;
+      margin-inline: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  /* Testimonial area */
+  .trust__testimonial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+    order: 4;
+    margin-top: 16px;
+    max-width: 298px;
+
+    @media screen and (min-width: 750px) {
+      order: 3;
+      margin-top: 24px;
+      gap: 12px;
+      max-width: 499px;
+    }
+  }
+
+  .trust__stars {
+    width: 68px;
+    height: 13px;
+
+    @media screen and (min-width: 750px) {
+      width: 110px;
+      height: 21px;
+    }
+  }
+
+  .trust__quote {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.14px;
+    color: var(--color-foreground);
+    margin: 0;
+    padding: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 18px;
+      line-height: 25px;
+      letter-spacing: 0;
+    }
+  }
+
+  .trust__reviewer {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: #797D86;
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.56px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Trust",
+  "tag": "section",
+  "class": "trust-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow text",
+      "default": "COMPLETE CONFIDENCE IN YOUR WATER"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Trusted by more than 10,000+ customers."
+    },
+    {
+      "type": "text",
+      "id": "heading_highlight",
+      "label": "Heading highlight",
+      "default": "10,000+"
+    },
+    {
+      "type": "color",
+      "id": "highlight_color",
+      "label": "Highlight color",
+      "default": "#8DCEF9"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left",
+      "label": "Left image"
+    },
+    {
+      "type": "text",
+      "id": "name_left",
+      "label": "Left image name",
+      "default": "JAKE V."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_center",
+      "label": "Center image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_right",
+      "label": "Right image"
+    },
+    {
+      "type": "text",
+      "id": "name_right",
+      "label": "Right image name",
+      "default": "ADAM W."
+    },
+    {
+      "type": "header",
+      "content": "Testimonial"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_text",
+      "label": "Testimonial text",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    },
+    {
+      "type": "text",
+      "id": "reviewer_name",
+      "label": "Reviewer name",
+      "default": "ANNIE M."
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Read All Reviews"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Gradient"
+    },
+    {
+      "type": "color",
+      "id": "gradient_start",
+      "label": "Gradient start",
+      "default": "#2179C2"
+    },
+    {
+      "type": "color",
+      "id": "gradient_mid",
+      "label": "Gradient middle",
+      "default": "#8DCEF9"
+    },
+    {
+      "type": "color",
+      "id": "gradient_end",
+      "label": "Gradient end",
+      "default": "#F1DCC1"
+    },
+    {
+      "type": "range",
+      "id": "gradient_opacity",
+      "label": "Gradient opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 10,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full width"
+        },
+        {
+          "value": "page-width",
+          "label": "Page width"
+        }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 48,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust"
+    }
+  ]
+}
+{% endschema %}

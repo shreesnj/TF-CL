@@ -391,6 +391,31 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "trust": {
+      "type": "trust",
+      "settings": {
+        "eyebrow_text": "COMPLETE CONFIDENCE IN YOUR WATER",
+        "heading": "Trusted by more than 10,000+ customers.",
+        "heading_highlight": "10,000+",
+        "highlight_color": "#8DCEF9",
+        "image_left": "shopify://shop_images/screenshot-2023-03-05-at-10-11-1-mobile-18492806.png",
+        "name_left": "JAKE V.",
+        "image_center": "shopify://shop_images/screenshot-2023-03-05-at-10-14-2-mobile-18492811.png",
+        "image_right": "shopify://shop_images/screenshot-2023-03-05-at-10-20-1-desktop-18492377.png",
+        "name_right": "ADAM W.",
+        "testimonial_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "reviewer_name": "ANNIE M.",
+        "button_text": "Read All Reviews",
+        "gradient_start": "#2179C2",
+        "gradient_mid": "#8DCEF9",
+        "gradient_end": "#F1DCC1",
+        "gradient_opacity": 10,
+        "color_scheme": "scheme-1",
+        "section_width": "full-width",
+        "padding-block-start": 60,
+        "padding-block-end": 48
+      }
     }
   },
   "order": [
@@ -400,6 +425,7 @@
     "filtration_tech_Xk9mR2",
     "product_list_fa6P9H",
     "shop_by_system",
-    "quiz"
+    "quiz",
+    "trust"
   ]
 }
