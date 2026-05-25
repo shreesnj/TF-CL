@@ -416,6 +416,19 @@
         "padding-block-start": 60,
         "padding-block-end": 48
       }
+    },
+    "from_the_blog": {
+      "type": "from-the-blog",
+      "settings": {
+        "heading": "From the Blog",
+        "button_text": "View All",
+        "mobile_button_text": "View All Articles",
+        "posts_to_show": 3,
+        "color_scheme": "scheme-1",
+        "section_width": "page-width",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
     }
   },
   "order": [
@@ -426,6 +439,7 @@
     "product_list_fa6P9H",
     "shop_by_system",
     "quiz",
-    "trust"
+    "trust",
+    "from_the_blog"
   ]
 }
