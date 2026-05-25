@@ -1,0 +1,788 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} filtration-technology color-{{ section.settings.color_scheme }} spacing-style"
+  style="{%- render 'spacing-style', settings: section.settings -%}"
+>
+  {%- comment -%} Blurred background image {%- endcomment -%}
+  {%- if section.settings.background_image != blank -%}
+    <div class="filtration-technology__bg-image-wrapper">
+      {{
+        section.settings.background_image
+        | image_url: width: 1200
+        | image_tag:
+          loading: 'lazy',
+          class: 'filtration-technology__bg-image',
+          alt: ''
+      }}
+    </div>
+  {%- endif -%}
+
+  <div class="filtration-technology__content">
+    {%- comment -%} Headline area {%- endcomment -%}
+    {%- if section.settings.subtitle != blank or section.settings.heading != blank or section.settings.body_text != blank -%}
+      <div class="filtration-technology__headline">
+        {%- if section.settings.subtitle != blank -%}
+          <p class="filtration-technology__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="filtration-technology__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.body_text != blank -%}
+          <p class="filtration-technology__body">{{ section.settings.body_text }}</p>
+        {%- endif -%}
+        {%- if section.settings.primary_button_text != blank or section.settings.secondary_button_text != blank -%}
+          <div class="filtration-technology__ctas">
+            {%- if section.settings.primary_button_text != blank -%}
+              <a
+                {% if section.settings.primary_button_url != blank %}
+                  href="{{ section.settings.primary_button_url }}"
+                {% else %}
+                  role="link"
+                  aria-disabled="true"
+                {% endif %}
+                class="filtration-technology__cta filtration-technology__cta--primary"
+              >
+                {{ section.settings.primary_button_text }}
+              </a>
+            {%- endif -%}
+            {%- if section.settings.secondary_button_text != blank -%}
+              <a
+                {% if section.settings.secondary_button_url != blank %}
+                  href="{{ section.settings.secondary_button_url }}"
+                {% else %}
+                  role="link"
+                  aria-disabled="true"
+                {% endif %}
+                class="filtration-technology__cta filtration-technology__cta--secondary"
+              >
+                {{ section.settings.secondary_button_text }}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Media area: filter image with orbit + video card {%- endcomment -%}
+    <div class="filtration-technology__media">
+      <div class="filtration-technology__filter-wrapper">
+        {%- if section.settings.filter_image != blank -%}
+          {%- assign filter_sizes = '(min-width: 750px) 303px, 225px' -%}
+          {{
+            section.settings.filter_image
+            | image_url: width: section.settings.filter_image.width
+            | image_tag:
+              sizes: filter_sizes,
+              widths: '225,303,450,606',
+              loading: 'lazy',
+              class: 'filtration-technology__filter-image',
+              alt: section.settings.filter_image.alt
+          }}
+        {%- endif -%}
+        {%- comment -%} Orbit SVG decoration {%- endcomment -%}
+        <svg class="filtration-technology__orbit" viewBox="0 0 385 178" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="orbit-gradient-{{ section.id }}" x1="0%" y1="50%" x2="100%" y2="50%">
+              <stop offset="0%" stop-color="#C1EFFA" />
+              <stop offset="100%" stop-color="#8DCEF9" />
+            </linearGradient>
+          </defs>
+          <ellipse cx="192.5" cy="89" rx="185" ry="80" stroke="url(#orbit-gradient-{{ section.id }})" stroke-width="2" />
+          <circle cx="18" cy="105" r="7" fill="url(#orbit-gradient-{{ section.id }})" />
+          <circle cx="367" cy="105" r="7" fill="url(#orbit-gradient-{{ section.id }})" />
+        </svg>
+      </div>
+
+      {%- comment -%} Video card {%- endcomment -%}
+      {%- if section.settings.video_thumbnail != blank -%}
+        <div class="filtration-technology__video-card">
+          <a
+            {% if section.settings.video_url != blank %}
+              href="{{ section.settings.video_url }}"
+            {% else %}
+              role="link"
+              aria-disabled="true"
+            {% endif %}
+            class="filtration-technology__video-link"
+          >
+            {%- assign video_sizes = '(min-width: 750px) 363px, calc(100vw - 33px)' -%}
+            {{
+              section.settings.video_thumbnail
+              | image_url: width: section.settings.video_thumbnail.width
+              | image_tag:
+                sizes: video_sizes,
+                widths: '357,363,714,726',
+                loading: 'lazy',
+                class: 'filtration-technology__video-image',
+                alt: section.settings.video_thumbnail.alt
+            }}
+            <div class="filtration-technology__video-overlay"></div>
+            <div class="filtration-technology__video-controls">
+              {%- if section.settings.video_label != blank -%}
+                <span class="filtration-technology__video-label">{{ section.settings.video_label }}</span>
+              {%- endif -%}
+              <span class="filtration-technology__play-button" aria-hidden="true">
+                <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 7L0 14V0L12 7Z" fill="#202635" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Callouts {%- endcomment -%}
+    {%- if section.blocks.size > 0 -%}
+      <div class="filtration-technology__callouts-wrapper">
+        <div class="filtration-technology__callouts-divider"></div>
+        <div class="filtration-technology__callouts">
+          {%- for block in section.blocks -%}
+            <div class="filtration-technology__callout" {{ block.shopify_attributes }}>
+              {%- if block.settings.icon != blank -%}
+                <div class="filtration-technology__callout-icon">
+                  {{
+                    block.settings.icon
+                    | image_url: width: 112
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'filtration-technology__callout-icon-img',
+                      alt: block.settings.icon.alt
+                  }}
+                </div>
+              {%- else -%}
+                <div class="filtration-technology__callout-icon filtration-technology__callout-icon--placeholder">
+                  <svg width="48" height="49" viewBox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="callout-gradient-{{ section.id }}-{{ forloop.index }}" x1="24" y1="0" x2="24" y2="49" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#5F57D6" />
+                        <stop offset="100%" stop-color="#85D3F5" />
+                      </linearGradient>
+                    </defs>
+                    <rect x="0.5" y="0.5" width="47" height="48" rx="4" stroke="url(#callout-gradient-{{ section.id }}-{{ forloop.index }})" stroke-width="0.5" fill="none" />
+                    <line x1="12" y1="12" x2="36" y2="12" stroke="url(#callout-gradient-{{ section.id }}-{{ forloop.index }})" stroke-width="0.5" />
+                    <line x1="12" y1="20" x2="36" y2="20" stroke="url(#callout-gradient-{{ section.id }}-{{ forloop.index }})" stroke-width="0.5" />
+                    <line x1="12" y1="28" x2="36" y2="28" stroke="url(#callout-gradient-{{ section.id }}-{{ forloop.index }})" stroke-width="0.5" />
+                    <line x1="12" y1="36" x2="36" y2="36" stroke="url(#callout-gradient-{{ section.id }}-{{ forloop.index }})" stroke-width="0.5" />
+                    <line x1="12" y1="12" x2="12" y2="36" stroke="url(#callout-gradient-{{ section.id }}-{{ forloop.index }})" stroke-width="0.5" />
+                    <line x1="20" y1="12" x2="20" y2="36" stroke="url(#callout-gradient-{{ section.id }}-{{ forloop.index }})" stroke-width="0.5" />
+                    <line x1="28" y1="12" x2="28" y2="36" stroke="url(#callout-gradient-{{ section.id }}-{{ forloop.index }})" stroke-width="0.5" />
+                    <line x1="36" y1="12" x2="36" y2="36" stroke="url(#callout-gradient-{{ section.id }}-{{ forloop.index }})" stroke-width="0.5" />
+                  </svg>
+                </div>
+              {%- endif -%}
+              <div class="filtration-technology__callout-text">
+                {%- if block.settings.title != blank -%}
+                  <h3 class="filtration-technology__callout-title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if block.settings.description != blank -%}
+                  <p class="filtration-technology__callout-description">{{ block.settings.description }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+            {%- unless forloop.last -%}
+              <div class="filtration-technology__callout-divider"></div>
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .filtration-technology {
+    overflow: hidden;
+  }
+
+  .filtration-technology__bg-image-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .filtration-technology__bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(500px);
+    mix-blend-mode: lighten;
+    transform: scale(1.5);
+    opacity: 0.6;
+  }
+
+  .filtration-technology__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-inline: var(--page-margin, 16px);
+  }
+
+  /* Headline */
+  .filtration-technology__headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    max-width: 757px;
+    margin-inline: auto;
+  }
+
+  .filtration-technology__subtitle {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.52px;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 18px;
+      line-height: 26px;
+      letter-spacing: 0.72px;
+    }
+  }
+
+  .filtration-technology__heading {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 34px;
+    letter-spacing: -0.52px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 42px;
+      line-height: 55px;
+      letter-spacing: -0.84px;
+    }
+  }
+
+  .filtration-technology__body {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 20px;
+      line-height: 28px;
+    }
+  }
+
+  .filtration-technology__ctas {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    padding-block-start: 8px;
+
+    @media screen and (min-width: 750px) {
+      gap: 18px;
+      padding-block-start: 16px;
+    }
+  }
+
+  .filtration-technology__cta {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 60px;
+    padding: 10px 24px 12px;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+    @media screen and (min-width: 750px) {
+      font-size: 16px;
+      line-height: 23px;
+      border-radius: 57px;
+      padding: 10px 34px 13px;
+    }
+  }
+
+  .filtration-technology__cta--primary {
+    background-color: var(--color-primary-button-background);
+    color: var(--color-primary-button-text);
+    border: 1px solid var(--color-primary-button-border);
+
+    &:hover {
+      background-color: var(--color-primary-button-hover-background);
+      color: var(--color-primary-button-hover-text);
+      border-color: var(--color-primary-button-hover-border);
+    }
+  }
+
+  .filtration-technology__cta--secondary {
+    background-color: var(--color-secondary-button-background);
+    color: var(--color-secondary-button-text);
+    border: 1px solid var(--color-secondary-button-border);
+
+    &:hover {
+      background-color: var(--color-secondary-button-hover-background);
+      color: var(--color-secondary-button-hover-text);
+      border-color: var(--color-secondary-button-hover-border);
+    }
+  }
+
+  /* Media area */
+  .filtration-technology__media {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block-start: 24px;
+    padding-block-end: 40px;
+
+    @media screen and (min-width: 750px) {
+      padding-block-start: 40px;
+      padding-block-end: 60px;
+      max-width: 1200px;
+      margin-inline: auto;
+    }
+  }
+
+  .filtration-technology__filter-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 286px;
+    height: 287px;
+
+    @media screen and (min-width: 750px) {
+      width: 385px;
+      height: 387px;
+    }
+  }
+
+  .filtration-technology__filter-image {
+    display: block;
+    width: 225px;
+    height: 287px;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    filter:
+      drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.1))
+      drop-shadow(8px 6px 21px rgba(0, 0, 0, 0.1))
+      drop-shadow(30px 24px 39px rgba(0, 0, 0, 0.09));
+
+    @media screen and (min-width: 750px) {
+      width: 303px;
+      height: 387px;
+    }
+  }
+
+  .filtration-technology__orbit {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  /* Video card */
+  .filtration-technology__video-card {
+    width: 100%;
+    max-width: 357px;
+    margin-block-start: 16px;
+
+    @media screen and (min-width: 750px) {
+      position: absolute;
+      bottom: 60px;
+      left: 0;
+      width: 363px;
+      max-width: 363px;
+      margin-block-start: 0;
+    }
+  }
+
+  .filtration-technology__video-link {
+    display: block;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+    text-decoration: none;
+    aspect-ratio: 363 / 205;
+  }
+
+  .filtration-technology__video-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .filtration-technology__video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+    border-radius: 5px;
+    pointer-events: none;
+  }
+
+  .filtration-technology__video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+  }
+
+  .filtration-technology__video-label {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.14px;
+    color: var(--color-foreground);
+
+    @media screen and (min-width: 750px) {
+      font-size: 18px;
+      line-height: 25px;
+      letter-spacing: 0;
+    }
+  }
+
+  .filtration-technology__play-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  /* Callouts */
+  .filtration-technology__callouts-wrapper {
+    width: 100%;
+    max-width: 1549px;
+    margin-inline: auto;
+  }
+
+  .filtration-technology__callouts-divider {
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-border);
+    margin-block-end: 40px;
+
+    @media screen and (min-width: 750px) {
+      margin-block-end: 48px;
+    }
+  }
+
+  .filtration-technology__callouts {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    @media screen and (min-width: 750px) {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 0;
+    }
+  }
+
+  .filtration-technology__callout {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    align-items: flex-start;
+
+    @media screen and (min-width: 750px) {
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  .filtration-technology__callout-divider {
+    display: none;
+
+    @media screen and (min-width: 750px) {
+      display: block;
+      width: 1px;
+      align-self: stretch;
+      background-color: var(--color-border);
+      margin-inline: 24px;
+    }
+  }
+
+  .filtration-technology__callout-icon {
+    flex-shrink: 0;
+    width: 39px;
+    height: 40px;
+
+    @media screen and (min-width: 750px) {
+      width: 48px;
+      height: 49px;
+    }
+  }
+
+  .filtration-technology__callout-icon-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .filtration-technology__callout-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    @media screen and (min-width: 750px) {
+      gap: 12px;
+    }
+  }
+
+  .filtration-technology__callout-title {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.14px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 18px;
+      line-height: 25px;
+      letter-spacing: 0;
+    }
+  }
+
+  .filtration-technology__callout-description {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    letter-spacing: 0.12px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 16px;
+      line-height: 22px;
+      letter-spacing: 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Filtration Technology",
+  "tag": "section",
+  "class": "filtration-technology-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "AFFINITY® FILTRATION TECHNOLOGY"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Advanced filters that set a new standard"
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "Our breakthrough filtration technology targets up to 73x more dangerous chemicals, contaminants, & toxins than typical carbon filters."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary button text",
+      "default": "Our Technology"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_url",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary button text",
+      "default": "Lab Test Results"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_url",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "filter_image",
+      "label": "Filter image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_thumbnail",
+      "label": "Video thumbnail"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video link"
+    },
+    {
+      "type": "text",
+      "id": "video_label",
+      "label": "Video label",
+      "default": "See it in action"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full width"
+        },
+        {
+          "value": "page-width",
+          "label": "Page width"
+        }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-5"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 72,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 72,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "callout",
+      "name": "Callout",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Callout title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Callout description goes here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Filtration Technology",
+      "blocks": [
+        {
+          "type": "callout",
+          "settings": {
+            "title": "Contaminant Magnet",
+            "description": "Our filter targets more contaminants than the 3 leading brand name water pitchers combined."
+          }
+        },
+        {
+          "type": "callout",
+          "settings": {
+            "title": "Targets 365+ Contaminants",
+            "description": "Our filter targets more contaminants than the 3 leading brand name water pitchers combined."
+          }
+        },
+        {
+          "type": "callout",
+          "settings": {
+            "title": "Contaminant Magnet",
+            "description": "Our filter targets more contaminants than the 3 leading brand name water pitchers combined."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
