@@ -69,7 +69,7 @@
   {%- if items_array.size > 0 -%}
     {%- assign show_column = true -%}
   {%- endif -%}
-  {%- if column == 'left' and row == 'top' and secondary_menu != blank -%}
+  {%- if column == 'right' and row == 'top' and secondary_menu != blank -%}
     {%- assign show_column = true -%}
   {%- endif -%}
 
@@ -78,7 +78,7 @@
       class="header__column header__column--{{ column }}"
       data-testid="header-{{ row }}-{{ column }}"
     >
-      {%- if column == 'left' and row == 'top' and secondary_menu != blank -%}
+      {%- if column == 'right' and row == 'top' and secondary_menu != blank -%}
         {{ secondary_menu }}
       {%- endif -%}
       {% for key in items_array %}
