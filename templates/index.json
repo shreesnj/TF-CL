@@ -391,6 +391,67 @@
         "padding-block-end": 16
       }
     },
+    "shop_by_category": {
+      "type": "shop-by-category",
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/image-1-mobile-18492663.png",
+            "title": "Filtered Pitcher"
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/image-2-mobile-18492709.png",
+            "title": "Water Bottles"
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/image-3-mobile-18492714.png",
+            "title": "Under Sink System"
+          }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/image-4-mobile-18492719.png",
+            "title": "Fridge Filter"
+          }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/image-5-mobile-18492724.png",
+            "title": "Replacement Filters"
+          }
+        },
+        "category_6": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/image-6-mobile-18492729.png",
+            "title": "Accessories"
+          }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "category_5",
+        "category_6"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "section_width": "page-width",
+        "padding-block-start": 65,
+        "padding-block-end": 65
+      }
+    },
     "experience_RkX7mQ": {
       "type": "experience",
       "settings": {
@@ -575,6 +636,7 @@
   "order": [
     "hero_jVaWmY",
     "rated_banner",
+    "shop_by_category",
     "experience_RkX7mQ",
     "clean_water_headline",
     "filtration_tech_Xk9mR2",
