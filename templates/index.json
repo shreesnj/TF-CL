@@ -9,6 +9,19 @@
  */
  {
   "sections": {
+    "complete_confidence": {
+      "type": "complete-confidence",
+      "settings": {
+        "heading": "Get complete confidence in your water",
+        "button_text": "Shop All Products",
+        "image": "shopify://shop_images/image-12-mobile-18492742.png",
+        "gradient_opacity": 60,
+        "section_width": "full-width",
+        "color_scheme": "scheme-6",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "hero_jVaWmY": {
       "type": "hero",
       "blocks": {
@@ -433,6 +446,7 @@
   },
   "order": [
     "hero_jVaWmY",
+    "complete_confidence",
     "experience_RkX7mQ",
     "clean_water_headline",
     "filtration_tech_Xk9mR2",

@@ -1,0 +1,257 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} complete-confidence color-{{ section.settings.color_scheme }} spacing-style"
+  style="{%- render 'spacing-style', settings: section.settings -%}"
+>
+  {%- if section.settings.image != blank -%}
+    {%- assign sizes_val = '100vw' -%}
+    {{
+      section.settings.image
+      | image_url: width: section.settings.image.width
+      | image_tag:
+        sizes: sizes_val,
+        widths: '390,750,1100,1440,1728,2400',
+        loading: 'lazy',
+        class: 'complete-confidence__image',
+        alt: section.settings.image.alt
+    }}
+  {%- endif -%}
+
+  <div class="complete-confidence__gradient" aria-hidden="true"></div>
+
+  <div class="complete-confidence__content">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="complete-confidence__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.button_text != blank -%}
+      <a
+        {% if section.settings.button_url != blank %}
+          href="{{ section.settings.button_url }}"
+        {% else %}
+          role="link"
+          aria-disabled="true"
+        {% endif %}
+        class="button complete-confidence__cta"
+      >
+        {{ section.settings.button_text }}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% style %}
+  #shopify-section-{{ section.id }} .complete-confidence__gradient {
+    opacity: {{ section.settings.gradient_opacity | divided_by: 100.0 }};
+  }
+{% endstyle %}
+
+{% stylesheet %}
+  .complete-confidence-section .complete-confidence {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 390 / 480;
+
+    @media screen and (min-width: 750px) {
+      aspect-ratio: 1728 / 856;
+    }
+  }
+
+  .complete-confidence__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .complete-confidence__gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+
+    @media screen and (min-width: 750px) {
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+    }
+  }
+
+  .complete-confidence__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 18px 32px;
+
+    @media screen and (min-width: 750px) {
+      gap: 28px;
+      max-width: var(--normal-page-width);
+      margin-inline: auto;
+      width: 100%;
+      padding-inline: var(--page-margin, 16px);
+      padding-block-start: 0;
+      padding-block-end: 80px;
+    }
+  }
+
+  .complete-confidence__heading {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 38px;
+    letter-spacing: -0.64px;
+    color: #FFFFFF;
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 64px;
+      line-height: 77px;
+      letter-spacing: -1.28px;
+      max-width: 893px;
+    }
+  }
+
+  .complete-confidence__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    border-radius: 60px;
+    padding: 10px 24px 12px;
+    text-align: center;
+    text-decoration: none;
+    width: fit-content;
+
+    @media screen and (min-width: 750px) {
+      font-size: 16px;
+      line-height: 23px;
+      border-radius: 57px;
+      padding: 10px 34px 13px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Complete Confidence",
+  "tag": "section",
+  "class": "complete-confidence-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Get complete confidence in your water"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop All Products"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "Gradient"
+    },
+    {
+      "type": "range",
+      "id": "gradient_opacity",
+      "label": "Gradient opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full width"
+        },
+        {
+          "value": "page-width",
+          "label": "Page width"
+        }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-6"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Complete Confidence"
+    }
+  ]
+}
+{% endschema %}
