@@ -430,7 +430,7 @@
 
 {% stylesheet %}
   body {
-    --header-height: 60px;
+    --header-height: 80px;
     --header-group-height: var(--header-height);
     --transparent-header-offset-boolean: 0; /* stylelint-disable-line declaration-property-value-disallowed-list */
   }
@@ -1135,9 +1135,10 @@
     font-size: var(--menu-localization-font-size);
   }
 
-  /* Nav link font-size override to match Figma 17px */
+  /* Nav link font-size and line-height override to match Figma 17px/24px */
   .menu-list__link-title {
     font-size: 1.0625rem;
+    line-height: 1.5rem;
   }
 
   /* Nav link gap override to match Figma 30px itemSpacing */
@@ -1145,11 +1146,7 @@
     gap: 30px;
   }
 
-  /* Secondary menu styles */
-  .header__secondary-menu-wrapper {
-    gap: var(--gap-xl);
-  }
-
+  /* Secondary menu styles — rendered inside left column */
   .header__secondary-menu-list {
     display: flex;
     gap: 30px;
@@ -1178,25 +1175,36 @@
     transition: opacity var(--animation-speed) var(--animation-easing);
   }
 
-  /* Mobile column reordering: actions left, drawer/hamburger right */
+  /* Mobile column reordering: search leftmost, actions second, hamburger right */
   @media screen and (max-width: 749px) {
-    .header__columns header-actions {
+    /* Search icon at far left (leftA) */
+    .header__columns .search-action {
       grid-area: leftA;
     }
 
+    /* Cart/account icons second from left (leftB) */
+    .header__columns header-actions {
+      grid-area: leftB;
+    }
+
+    /* Hamburger at far right */
     .header__columns .header__icon--menu,
     .header__columns header-drawer {
       grid-area: rightB;
     }
 
-    .header__secondary-menu,
-    .header__secondary-menu-wrapper {
+    /* Secondary nav is desktop-only via mobile:hidden on the <nav> element */
+    .header__secondary-menu {
       display: none;
     }
   }
 
-  #header-component[data-menu-style='drawer'] .header__columns header-actions {
+  #header-component[data-menu-style='drawer'] .header__columns .search-action {
     grid-area: leftA;
+  }
+
+  #header-component[data-menu-style='drawer'] .header__columns header-actions {
+    grid-area: leftB;
   }
 
   #header-component[data-menu-style='drawer'] .header__columns .header__icon--menu,

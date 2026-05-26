@@ -65,11 +65,22 @@
 
   {%- assign items_array = items_for_column | strip | split: ' ' | compact -%}
 
+  {%- assign show_column = false -%}
   {%- if items_array.size > 0 -%}
+    {%- assign show_column = true -%}
+  {%- endif -%}
+  {%- if column == 'left' and row == 'top' and secondary_menu != blank -%}
+    {%- assign show_column = true -%}
+  {%- endif -%}
+
+  {%- if show_column -%}
     <div
       class="header__column header__column--{{ column }}"
       data-testid="header-{{ row }}-{{ column }}"
     >
+      {%- if column == 'left' and row == 'top' and secondary_menu != blank -%}
+        {{ secondary_menu }}
+      {%- endif -%}
       {% for key in items_array %}
         {% unless key == blank %}
           {% case key %}
@@ -93,9 +104,3 @@
     </div>
   {%- endif -%}
 {%- endfor -%}
-
-{%- if secondary_menu != blank -%}
-  <div class="header__column header__column--right header__secondary-menu-wrapper mobile:hidden">
-    {{ secondary_menu }}
-  </div>
-{%- endif -%}
