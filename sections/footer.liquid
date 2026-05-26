@@ -134,6 +134,61 @@
       letter-spacing: 0.14px;
     }
   }
+
+  /* Footer redesign: desktop column gap per Figma */
+  @media screen and (min-width: 990px) {
+    .footer-content:has(> :nth-child(6)) {
+      column-gap: clamp(32px, 6vw, 100px);
+    }
+  }
+
+  /* Footer redesign: newsletter heading typography per Figma (28px/36px) */
+  .footer-content > :first-child .h4 {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.28px;
+  }
+
+  /* Footer redesign: email input typography per Figma (28px/36px) */
+  .footer-content > :first-child .email-signup__input {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.28px;
+  }
+
+  /* Footer redesign: email placeholder color per Figma */
+  .footer-content > :first-child .email-signup__input::placeholder {
+    color: #D3D8DD;
+  }
+
+  /* Footer redesign: card heading typography per Figma (20px/26px) */
+  .footer-content > :nth-child(6) .h5 {
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: -0.2px;
+  }
+
+  /* Footer redesign: menu item line-height per Figma (16px/22px) */
+  @media screen and (min-width: 750px) {
+    .footer-content .menu__item {
+      line-height: 22px;
+    }
+  }
+
+  /* Footer redesign: mobile newsletter + email overrides per Figma */
+  @media screen and (max-width: 749px) {
+    .footer-content > :first-child .h4 {
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: -0.2px;
+    }
+
+    .footer-content > :first-child .email-signup__input {
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: -0.2px;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
