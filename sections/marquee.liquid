@@ -35,6 +35,16 @@
   </div>
 </marquee-component>
 
+{% if section.settings.show_gradient_bar %}
+  <div
+    class="marquee__gradient-bar"
+    style="
+      height: {{ section.settings.gradient_height }}px;
+      background: linear-gradient(270deg, {{ section.settings.gradient_color_start }} 0%, {{ section.settings.gradient_color_mid }} 51%, {{ section.settings.gradient_color_end }} 100%);
+    "
+  ></div>
+{% endif %}
+
 {% stylesheet %}
   marquee-component {
     display: block;
@@ -86,6 +96,10 @@
       transform: translate3d(calc(-50% - (var(--marquee-gap) / 2)), 0, 0);
     }
   }
+
+  .marquee__gradient-bar {
+    width: 100%;
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -106,6 +120,9 @@
     },
     {
       "type": "_divider"
+    },
+    {
+      "type": "group"
     }
   ],
   "settings": [
@@ -130,6 +147,48 @@
       "id": "color_scheme",
       "label": "t:settings.color_scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Gradient bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gradient_bar",
+      "label": "Show gradient bar",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "gradient_height",
+      "label": "Gradient height",
+      "min": 1,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "default": 3,
+      "visible_if": "{{ section.settings.show_gradient_bar }}"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_start",
+      "label": "Gradient start",
+      "default": "#2179C2",
+      "visible_if": "{{ section.settings.show_gradient_bar }}"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_mid",
+      "label": "Gradient middle",
+      "default": "#8DCEF9",
+      "visible_if": "{{ section.settings.show_gradient_bar }}"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_end",
+      "label": "Gradient end",
+      "default": "#F1DCC1",
+      "visible_if": "{{ section.settings.show_gradient_bar }}"
     },
     {
       "type": "header",
@@ -187,6 +246,124 @@
         }
       },
       "block_order": ["text"]
+    },
+    {
+      "name": "Trust ticker",
+      "category": "t:categories.text",
+      "settings": {
+        "color_scheme": "scheme-5",
+        "padding-block-start": 36,
+        "padding-block-end": 36,
+        "gap_between_elements": 48,
+        "show_gradient_bar": true,
+        "gradient_height": 3,
+        "movement_direction": "reverse"
+      },
+      "blocks": {
+        "group_1": {
+          "type": "group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "vertical_alignment": "center",
+            "gap": 12,
+            "height": "auto",
+            "width": "fit-content"
+          },
+          "blocks": {
+            "icon_1": {
+              "type": "icon",
+              "settings": {
+                "icon": "shield_check",
+                "width": 20
+              }
+            },
+            "text_1": {
+              "type": "text",
+              "settings": {
+                "text": "MADE IN THE USA WITH MEDICAL-GRADE MATERIALS",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "var(--font-size--xs)",
+                "case": "upper",
+                "wrap": "nowrap",
+                "width": "fit-content",
+                "letter_spacing": "loose"
+              }
+            }
+          },
+          "block_order": ["icon_1", "text_1"]
+        },
+        "group_2": {
+          "type": "group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "vertical_alignment": "center",
+            "gap": 12,
+            "height": "auto",
+            "width": "fit-content"
+          },
+          "blocks": {
+            "icon_2": {
+              "type": "icon",
+              "settings": {
+                "icon": "lab_beaker",
+                "width": 20
+              }
+            },
+            "text_2": {
+              "type": "text",
+              "settings": {
+                "text": "LAB TESTED & VERIFIED BY EPA/NSF STANDARDS",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "var(--font-size--xs)",
+                "case": "upper",
+                "wrap": "nowrap",
+                "width": "fit-content",
+                "letter_spacing": "loose"
+              }
+            }
+          },
+          "block_order": ["icon_2", "text_2"]
+        },
+        "group_3": {
+          "type": "group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "vertical_alignment": "center",
+            "gap": 12,
+            "height": "auto",
+            "width": "fit-content"
+          },
+          "blocks": {
+            "icon_3": {
+              "type": "icon",
+              "settings": {
+                "icon": "warranty",
+                "width": 20
+              }
+            },
+            "text_3": {
+              "type": "text",
+              "settings": {
+                "text": "LIMITED LIFETIME WARRANTY",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "var(--font-size--xs)",
+                "case": "upper",
+                "wrap": "nowrap",
+                "width": "fit-content",
+                "letter_spacing": "loose"
+              }
+            }
+          },
+          "block_order": ["icon_3", "text_3"]
+        }
+      },
+      "block_order": ["group_1", "group_2", "group_3"]
     }
   ]
 }
