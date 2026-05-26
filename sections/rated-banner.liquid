@@ -4,18 +4,14 @@
   assign end_color = section.settings.gradient_color_end
 %}
 
-<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section-background color-{{ section.settings.color_scheme }}"
+  style="background: linear-gradient(90deg, rgba({{ start_color.red }}, {{ start_color.green }}, {{ start_color.blue }}, {{ gradient_opacity_decimal }}) 0%, rgba({{ end_color.red }}, {{ end_color.green }}, {{ end_color.blue }}, {{ gradient_opacity_decimal }}) 100%);"
+></div>
 <div
   class="rated-banner section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
   style="
     {% render 'spacing-padding', settings: section.settings %};
-    --gradient-start-r: {{ start_color.red }};
-    --gradient-start-g: {{ start_color.green }};
-    --gradient-start-b: {{ start_color.blue }};
-    --gradient-end-r: {{ end_color.red }};
-    --gradient-end-g: {{ end_color.green }};
-    --gradient-end-b: {{ end_color.blue }};
-    --gradient-opacity: {{ gradient_opacity_decimal }};
     --star-color: {{ section.settings.star_color }};
   "
 >
@@ -42,11 +38,6 @@
 
 {% stylesheet %}
   .rated-banner {
-    background: linear-gradient(
-      90deg,
-      rgba(var(--gradient-start-r), var(--gradient-start-g), var(--gradient-start-b), var(--gradient-opacity)) 0%,
-      rgba(var(--gradient-end-r), var(--gradient-end-g), var(--gradient-end-b), var(--gradient-opacity)) 100%
-    );
     padding-block-start: var(--padding-block-start);
     padding-block-end: var(--padding-block-end);
   }
