@@ -352,6 +352,20 @@
         "gap_between_elements": 48
       }
     },
+    "rated_banner": {
+      "type": "rated-banner",
+      "settings": {
+        "text": "Rated 4.9 stars across 10,000+ Reviews",
+        "star_color": "#3383C5",
+        "gradient_color_start": "#C1EFFA",
+        "gradient_color_end": "#C1EFFA",
+        "gradient_opacity": 50,
+        "color_scheme": "scheme-1",
+        "section_width": "full-width",
+        "padding-block-start": 16,
+        "padding-block-end": 16
+      }
+    },
     "experience_RkX7mQ": {
       "type": "experience",
       "settings": {
@@ -535,6 +549,7 @@
   },
   "order": [
     "hero_jVaWmY",
+    "rated_banner",
     "experience_RkX7mQ",
     "clean_water_headline",
     "filtration_tech_Xk9mR2",

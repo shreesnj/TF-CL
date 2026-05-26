@@ -74,6 +74,11 @@
   }
 
   @media screen and (max-width: 749px) {
+    /* Stars appear before text on mobile (Figma mobile: ★ then text, desktop: text then ★) */
+    .rated-banner__content {
+      flex-direction: row-reverse;
+    }
+
     .rated-banner__text {
       font-size: var(--font-size--sm);
       line-height: 20px;
