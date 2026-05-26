@@ -452,36 +452,30 @@
         "padding-block-end": 65
       }
     },
-    "experience_RkX7mQ": {
-      "type": "experience",
-      "settings": {
-        "subtitle": "TITLE GOES HERE",
-        "title": "Experience Best-in-Class Filtration",
-        "image": "shopify://shop_images/image-7-mobile-18492650.png",
-        "promo_subtitle": "40oz Stainless Filtered Water Bottle",
-        "promo_heading": "Our biggest (and best bottle) just dropped",
-        "promo_body": "Go big with the bottle designed for more freedom and fewer refills. The comfort-grip handle makes it easy to grab and go, it fits standard cup holders like a glove, and it cleans every drop.",
-        "button_text": "Shop 42oz Now",
-        "button_url": "",
-        "gradient_start": "#c1effa",
-        "gradient_end": "#8dcef9",
-        "gradient_opacity": 50,
-        "content_gap": 40,
-        "section_width": "full-width",
-        "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 0
-      }
-    },
     "clean_water_headline": {
       "type": "clean-water-clean-mind",
       "settings": {
         "eyebrow": "CLEAN WATER, CLEAR MIND",
         "heading": "Dedicated To Your Health & Safety",
+        "block1_image": "shopify://shop_images/image-8-mobile-18492661.png",
+        "block1_title": "Water Pitcher with Affinity Filtration Technology",
+        "block1_tagline": "No other pitcher gives you this level of protection.",
+        "block1_price": "From $XX.XX",
+        "block1_primary_button_text": "Shop Pitchers",
+        "block1_secondary_button_text": "See How It Works",
+        "block1_bg_color": "#e6f0f8",
+        "block2_image": "shopify://shop_images/image-7-mobile-18492650.png",
+        "block2_subtitle": "40oz Stainless Filtered Water Bottle",
+        "block2_heading": "Our biggest (and best bottle) just dropped",
+        "block2_body": "Go big with the bottle designed for more freedom and fewer refills. The comfort-grip handle makes it easy to grab and go, it fits standard cup holders like a glove, and it cleans every drop.",
+        "block2_button_text": "Shop 42oz Now",
+        "block2_gradient_start": "#c1effa",
+        "block2_gradient_end": "#8dcef9",
+        "block2_gradient_opacity": 50,
         "color_scheme": "scheme-1",
-        "section_width": "page-width",
+        "section_width": "full-width",
         "padding-block-start": 40,
-        "padding-block-end": 40
+        "padding-block-end": 0
       }
     },
     "filtration_tech_Xk9mR2": {
@@ -637,7 +631,6 @@
     "hero_jVaWmY",
     "rated_banner",
     "shop_by_category",
-    "experience_RkX7mQ",
     "clean_water_headline",
     "filtration_tech_Xk9mR2",
     "shop_by_system",

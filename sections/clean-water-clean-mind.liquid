@@ -1,31 +1,181 @@
+{% liquid
+  assign gradient_opacity_decimal = section.settings.block2_gradient_opacity | divided_by: 100.0
+  assign gs = section.settings.block2_gradient_start
+  assign ge = section.settings.block2_gradient_end
+%}
+
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <div
-  class="section section--{{ section.settings.section_width }} clean-water-clean-mind color-{{ section.settings.color_scheme }} spacing-style"
+  class="section section--{{ section.settings.section_width }} cwcm color-{{ section.settings.color_scheme }} spacing-style"
   style="{%- render 'spacing-style', settings: section.settings -%}"
 >
-  <div class="clean-water-clean-mind__content">
-    {%- if section.settings.eyebrow != blank -%}
-      <p class="clean-water-clean-mind__eyebrow">{{ section.settings.eyebrow }}</p>
-    {%- endif -%}
-    {%- if section.settings.heading != blank -%}
-      <h2 class="clean-water-clean-mind__heading">{{ section.settings.heading }}</h2>
-    {%- endif -%}
+  {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+    <div class="cwcm__headline">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="cwcm__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="cwcm__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <!-- Block 1: Pitcher -->
+  <div class="cwcm__split">
+    <div class="cwcm__split-image">
+      {%- if section.settings.block1_image != blank -%}
+        {%- assign sizes_val_1 = '(min-width: 750px) 50vw, 100vw' -%}
+        {{
+          section.settings.block1_image
+          | image_url: width: section.settings.block1_image.width
+          | image_tag:
+            sizes: sizes_val_1,
+            widths: '390,550,750,774,1100',
+            loading: 'lazy',
+            class: 'cwcm__image',
+            alt: section.settings.block1_image.alt
+        }}
+      {%- endif -%}
+    </div>
+    <div
+      class="cwcm__promo cwcm__promo--solid"
+      style="background-color: {{ section.settings.block1_bg_color }};"
+    >
+      <div class="cwcm__promo-inner">
+        <div class="cwcm__promo-text-group">
+          {%- if section.settings.block1_title != blank -%}
+            <h3 class="cwcm__promo-title">{{ section.settings.block1_title }}</h3>
+          {%- endif -%}
+          {%- if section.settings.block1_tagline != blank -%}
+            <p class="cwcm__promo-tagline">{{ section.settings.block1_tagline }}</p>
+          {%- endif -%}
+          {%- if section.settings.block1_price != blank -%}
+            <p class="cwcm__promo-price">{{ section.settings.block1_price }}</p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.block1_promo_image != blank -%}
+          {{
+            section.settings.block1_promo_image
+            | image_url: width: 353
+            | image_tag:
+              class: 'cwcm__promo-product-image',
+              loading: 'lazy',
+              widths: '353,706',
+              sizes: '(min-width: 750px) 353px, 260px',
+              alt: section.settings.block1_promo_image.alt
+          }}
+        {%- endif -%}
+        <div class="cwcm__ctas">
+          {%- if section.settings.block1_primary_button_text != blank -%}
+            <a
+              {%- if section.settings.block1_primary_button_url != blank %}
+                href="{{ section.settings.block1_primary_button_url }}"
+              {%- else %}
+                role="link"
+                aria-disabled="true"
+              {%- endif %}
+              class="button cwcm__cta-button"
+            >
+              {{ section.settings.block1_primary_button_text }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.block1_secondary_button_text != blank -%}
+            <a
+              {%- if section.settings.block1_secondary_button_url != blank %}
+                href="{{ section.settings.block1_secondary_button_url }}"
+              {%- else %}
+                role="link"
+                aria-disabled="true"
+              {%- endif %}
+              class="cwcm__text-cta"
+            >
+              {{ section.settings.block1_secondary_button_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Block 2: Bottle -->
+  <div class="cwcm__split">
+    <div class="cwcm__split-image">
+      {%- if section.settings.block2_image != blank -%}
+        {%- assign sizes_val_2 = '(min-width: 750px) 50vw, 100vw' -%}
+        {{
+          section.settings.block2_image
+          | image_url: width: section.settings.block2_image.width
+          | image_tag:
+            sizes: sizes_val_2,
+            widths: '390,550,750,774,1100',
+            loading: 'lazy',
+            class: 'cwcm__image',
+            alt: section.settings.block2_image.alt
+        }}
+      {%- endif -%}
+    </div>
+    <div class="cwcm__promo cwcm__promo--gradient">
+      <div class="cwcm__promo-inner">
+        <div class="cwcm__promo-text-group cwcm__promo-text-group--lg-gap">
+          {%- if section.settings.block2_subtitle != blank -%}
+            <p class="cwcm__promo-subtitle">{{ section.settings.block2_subtitle }}</p>
+          {%- endif -%}
+          {%- if section.settings.block2_heading != blank -%}
+            <h3 class="cwcm__promo-heading">{{ section.settings.block2_heading }}</h3>
+          {%- endif -%}
+          {%- if section.settings.block2_body != blank -%}
+            <p class="cwcm__promo-body">{{ section.settings.block2_body }}</p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.block2_button_text != blank -%}
+          <div class="cwcm__ctas">
+            <a
+              {%- if section.settings.block2_button_url != blank %}
+                href="{{ section.settings.block2_button_url }}"
+              {%- else %}
+                role="link"
+                aria-disabled="true"
+              {%- endif %}
+              class="button cwcm__cta-button"
+            >
+              {{ section.settings.block2_button_text }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
   </div>
 </div>
 
+{% style %}
+  #shopify-section-{{ section.id }} .cwcm__promo--gradient {
+    background: linear-gradient(
+      90deg,
+      rgba({{ gs.red }}, {{ gs.green }}, {{ gs.blue }}, {{ gradient_opacity_decimal }}) 0%,
+      rgba({{ ge.red }}, {{ ge.green }}, {{ ge.blue }}, {{ gradient_opacity_decimal }}) 100%
+    );
+  }
+{% endstyle %}
+
 {% stylesheet %}
-  .clean-water-clean-mind__content {
+  /* ─── Headline ─── */
+  .cwcm__headline {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 16px;
     max-width: 758px;
-    margin: 0 auto;
+    margin-inline: auto;
     padding-inline: var(--page-margin, 16px);
+    padding-block-end: 32px;
+
+    @media screen and (min-width: 750px) {
+      padding-block-end: 48px;
+    }
   }
 
-  .clean-water-clean-mind__eyebrow {
+  .cwcm__eyebrow {
     font-family: var(--font-heading--family);
     font-weight: 400;
     font-size: 13px;
@@ -42,7 +192,7 @@
     }
   }
 
-  .clean-water-clean-mind__heading {
+  .cwcm__heading {
     font-family: var(--font-heading--family);
     font-weight: 400;
     font-size: 26px;
@@ -57,6 +207,226 @@
       letter-spacing: -0.84px;
     }
   }
+
+  /* ─── 50/50 Split ─── */
+  .cwcm__split {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @media screen and (min-width: 750px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .cwcm__split-image {
+    overflow: hidden;
+    aspect-ratio: 390 / 360;
+
+    @media screen and (min-width: 750px) {
+      aspect-ratio: unset;
+      min-height: 480px;
+    }
+  }
+
+  .cwcm__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* ─── Promo Panels ─── */
+  .cwcm__promo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+
+    @media screen and (min-width: 750px) {
+      padding: 48px 40px;
+    }
+  }
+
+  .cwcm__promo-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 492px;
+
+    @media screen and (min-width: 750px) {
+      gap: 24px;
+    }
+  }
+
+  /* ─── Promo Text Groups ─── */
+  .cwcm__promo-text-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    @media screen and (min-width: 750px) {
+      gap: 16px;
+    }
+  }
+
+  .cwcm__promo-text-group--lg-gap {
+    @media screen and (min-width: 750px) {
+      gap: 32px;
+    }
+  }
+
+  /* Block 1 typography */
+  .cwcm__promo-title {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+    letter-spacing: -0.2px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 28px;
+      line-height: 36px;
+      letter-spacing: -0.28px;
+    }
+  }
+
+  .cwcm__promo-tagline {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.14px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 16px;
+      line-height: 22px;
+      letter-spacing: 0;
+    }
+  }
+
+  .cwcm__promo-price {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 20px;
+      line-height: 27px;
+    }
+  }
+
+  .cwcm__promo-product-image {
+    display: none;
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+
+    @media screen and (min-width: 750px) {
+      display: block;
+      max-width: 353px;
+    }
+  }
+
+  /* Block 2 typography */
+  .cwcm__promo-subtitle {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.52px;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 18px;
+      line-height: 26px;
+      letter-spacing: 0.72px;
+    }
+  }
+
+  .cwcm__promo-heading {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 29px;
+    letter-spacing: -0.22px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 36px;
+      line-height: 47px;
+      letter-spacing: -0.36px;
+    }
+  }
+
+  .cwcm__promo-body {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.14px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 18px;
+      line-height: 25px;
+      letter-spacing: 0;
+    }
+  }
+
+  /* ─── CTAs ─── */
+  .cwcm__ctas {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .cwcm__cta-button {
+    border-radius: 60px;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 10px 24px 12px;
+
+    @media screen and (min-width: 750px) {
+      border-radius: 57px;
+      font-size: 16px;
+      line-height: 23px;
+      padding: 10px 34px 13px;
+    }
+  }
+
+  .cwcm__text-cta {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    @media screen and (min-width: 750px) {
+      font-size: 16px;
+      line-height: 23px;
+    }
+
+    &:hover {
+      opacity: 0.75;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -67,7 +437,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "Headline"
     },
     {
       "type": "text",
@@ -80,6 +450,126 @@
       "id": "heading",
       "label": "Heading",
       "default": "Dedicated To Your Health & Safety"
+    },
+    {
+      "type": "header",
+      "content": "Block 1 — Pitcher"
+    },
+    {
+      "type": "image_picker",
+      "id": "block1_image",
+      "label": "Main image"
+    },
+    {
+      "type": "text",
+      "id": "block1_title",
+      "label": "Product title",
+      "default": "Water Pitcher with Affinity Filtration Technology"
+    },
+    {
+      "type": "text",
+      "id": "block1_tagline",
+      "label": "Tagline",
+      "default": "No other pitcher gives you this level of protection."
+    },
+    {
+      "type": "text",
+      "id": "block1_price",
+      "label": "Price text",
+      "default": "From $XX.XX"
+    },
+    {
+      "type": "image_picker",
+      "id": "block1_promo_image",
+      "label": "Promo product image"
+    },
+    {
+      "type": "text",
+      "id": "block1_primary_button_text",
+      "label": "Primary button text",
+      "default": "Shop Pitchers"
+    },
+    {
+      "type": "url",
+      "id": "block1_primary_button_url",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "block1_secondary_button_text",
+      "label": "Secondary button text",
+      "default": "See How It Works"
+    },
+    {
+      "type": "url",
+      "id": "block1_secondary_button_url",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "color",
+      "id": "block1_bg_color",
+      "label": "Background color",
+      "default": "#e6f0f8"
+    },
+    {
+      "type": "header",
+      "content": "Block 2 — Bottle"
+    },
+    {
+      "type": "image_picker",
+      "id": "block2_image",
+      "label": "Main image"
+    },
+    {
+      "type": "text",
+      "id": "block2_subtitle",
+      "label": "Subtitle",
+      "default": "40oz Stainless Filtered Water Bottle"
+    },
+    {
+      "type": "text",
+      "id": "block2_heading",
+      "label": "Heading",
+      "default": "Our biggest (and best bottle) just dropped"
+    },
+    {
+      "type": "textarea",
+      "id": "block2_body",
+      "label": "Body",
+      "default": "Go big with the bottle designed for more freedom and fewer refills. The comfort-grip handle makes it easy to grab and go, it fits standard cup holders like a glove, and it cleans every drop."
+    },
+    {
+      "type": "text",
+      "id": "block2_button_text",
+      "label": "Button text",
+      "default": "Shop 42oz Now"
+    },
+    {
+      "type": "url",
+      "id": "block2_button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "block2_gradient_start",
+      "label": "Gradient start",
+      "default": "#C1EFFA"
+    },
+    {
+      "type": "color",
+      "id": "block2_gradient_end",
+      "label": "Gradient end",
+      "default": "#8DCEF9"
+    },
+    {
+      "type": "range",
+      "id": "block2_gradient_opacity",
+      "label": "Gradient opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 50,
+      "unit": "%"
     },
     {
       "type": "header",
@@ -105,7 +595,7 @@
           "label": "Page width"
         }
       ],
-      "default": "page-width"
+      "default": "full-width"
     },
     {
       "type": "header",
@@ -128,7 +618,7 @@
       "min": 0,
       "max": 100,
       "step": 1,
-      "default": 40,
+      "default": 0,
       "unit": "px"
     }
   ],
