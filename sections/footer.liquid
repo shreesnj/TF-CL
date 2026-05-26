@@ -87,6 +87,53 @@
       grid-column: 1 / -1;
     }
   }
+
+  /* Footer redesign: email signup row spans full width */
+  @media screen and (min-width: 750px) {
+    .footer-content > :first-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Footer redesign: 5-column grid for 6-block layout */
+  @media screen and (min-width: 990px) {
+    .footer-content:has(> :nth-child(6)) {
+      grid-template-columns: repeat(4, 1fr) 1.5fr;
+    }
+  }
+
+  /* Footer redesign: menu heading typography */
+  .footer-content .menu__heading__default {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+  }
+
+  /* Footer redesign: card link underline */
+  .footer-content > :nth-child(6) .link {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* Footer redesign: mobile overrides */
+  @media screen and (max-width: 749px) {
+    .footer-content > :nth-child(6) {
+      display: none;
+    }
+
+    .footer-content .menu__heading {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: -0.14px;
+      font-weight: 400;
+    }
+
+    .footer-content .menu__item {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.14px;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}

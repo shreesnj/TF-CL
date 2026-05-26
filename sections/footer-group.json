@@ -14,121 +14,66 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "group_wErUQf": {
+        "email_group": {
           "type": "group",
-          "name": "Join our email list",
           "settings": {
-            "link": "",
-            "open_in_new_tab": false,
-            "content_direction": "column",
+            "content_direction": "row",
             "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
+            "horizontal_alignment": "space-between",
             "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
+            "gap": 24,
             "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
             "height": "fit",
-            "custom_height": 100,
             "inherit_color_scheme": true,
-            "color_scheme": "",
             "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
             "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
             "border_radius": 0,
-            "placeholder": "",
             "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "text_pF6rVi": {
+            "email_heading": {
               "type": "text",
-              "name": "Heading",
               "settings": {
-                "text": "<h2>Join our email list</h2>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h3",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
+                "text": "<p>Stay in the know<br>Subscribe to our newsletter</p>",
+                "width": "fit-content",
+                "max_width": "none",
+                "type_preset": "h4",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              },
-              "blocks": {}
+              }
             },
-            "text_HafH7P": {
-              "type": "text",
-              "name": "Text",
-              "settings": {
-                "text": "<p>Get exclusive deals and early access to new products.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "email-signup_HafH7P": {
+            "email_input": {
               "type": "email-signup",
-              "name": "Email Signup",
               "settings": {
-                "width": "fill"
+                "width": "fill",
+                "border_style": "underline",
+                "display_type": "arrow",
+                "style_class": "button-unstyled",
+                "input_type_preset": "h4",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               }
             }
           },
-          "block_order": [
-            "text_pF6rVi",
-            "text_HafH7P",
-            "email-signup_HafH7P"
-          ]
+          "block_order": ["email_heading", "email_input"]
         },
-        "menu_footer": {
+        "menu_shop": {
           "type": "menu",
           "settings": {
-            "menu": "footer",
-            "heading": "",
-            "menu_spacing": 12,
-            "show_as_accordion": false,
-            "accordion_icon": "plus",
-            "accordion_dividers": false,
+            "menu": "shop",
+            "heading": "Shop",
+            "menu_spacing": 16,
+            "show_as_accordion": true,
+            "accordion_icon": "caret",
+            "accordion_dividers": true,
             "inherit_color_scheme": true,
             "heading_preset": "paragraph",
             "link_preset": "paragraph",
@@ -138,15 +83,15 @@
             "padding-inline-end": 0
           }
         },
-        "menu_main": {
+        "menu_technology": {
           "type": "menu",
           "settings": {
-            "menu": "main-menu",
-            "heading": "",
-            "menu_spacing": 12,
-            "show_as_accordion": false,
-            "accordion_icon": "plus",
-            "accordion_dividers": false,
+            "menu": "technology",
+            "heading": "Technology",
+            "menu_spacing": 16,
+            "show_as_accordion": true,
+            "accordion_icon": "caret",
+            "accordion_dividers": true,
             "inherit_color_scheme": true,
             "heading_preset": "paragraph",
             "link_preset": "paragraph",
@@ -155,19 +100,106 @@
             "padding-inline-start": 0,
             "padding-inline-end": 0
           }
+        },
+        "menu_support": {
+          "type": "menu",
+          "settings": {
+            "menu": "support",
+            "heading": "Support",
+            "menu_spacing": 16,
+            "show_as_accordion": true,
+            "accordion_icon": "caret",
+            "accordion_dividers": true,
+            "inherit_color_scheme": true,
+            "heading_preset": "paragraph",
+            "link_preset": "paragraph",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "menu_company": {
+          "type": "menu",
+          "settings": {
+            "menu": "company",
+            "heading": "Company",
+            "menu_spacing": 16,
+            "show_as_accordion": true,
+            "accordion_icon": "caret",
+            "accordion_dividers": true,
+            "inherit_color_scheme": true,
+            "heading_preset": "paragraph",
+            "link_preset": "paragraph",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "card_group": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "height": "fill",
+            "inherit_color_scheme": false,
+            "color_scheme": "scheme-5",
+            "background_media": "image",
+            "background_image": "shopify://shop_images/495665d329f0736322b64c887aa6e90a-desktop-I184923014387.jpg",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_radius": 8,
+            "toggle_overlay": true,
+            "overlay_color": "#00000080",
+            "overlay_style": "solid",
+            "padding-block-start": 24,
+            "padding-block-end": 24,
+            "padding-inline-start": 24,
+            "padding-inline-end": 24
+          },
+          "blocks": {
+            "card_heading": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Find Your Filter</p>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "center",
+                "type_preset": "h5",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "card_button": {
+              "type": "button",
+              "settings": {
+                "label": "Lab Test Results",
+                "style_class": "link"
+              }
+            }
+          },
+          "block_order": ["card_heading", "card_button"]
         }
       },
       "block_order": [
-        "group_wErUQf",
-        "menu_footer",
-        "menu_main"
+        "email_group",
+        "menu_shop",
+        "menu_technology",
+        "menu_support",
+        "menu_company",
+        "card_group"
       ],
-      "name": "t:names.footer",
       "settings": {
         "section_width": "page-width",
-        "gap": 40,
+        "gap": 32,
         "color_scheme": "scheme-5",
-        "padding-block-start": 36,
+        "padding-block-start": 48,
         "padding-block-end": 36
       }
     },
@@ -178,15 +210,15 @@
         "gap": 24,
         "divider_thickness": 1,
         "color_scheme": "scheme-5",
-        "padding-block-start": 12,
+        "padding-block-start": 16,
         "padding-block-end": 16
       },
       "blocks": {
         "copyright": {
           "type": "footer-copyright",
           "settings": {
-            "show_powered_by": true,
-            "font_size": "0.75rem",
+            "show_powered_by": false,
+            "font_size": "0.875rem",
             "case": "none"
           }
         },
@@ -200,17 +232,14 @@
         "social_icons": {
           "type": "social-links",
           "settings": {
-            "facebook_url": "https://www.facebook.com",
             "instagram_url": "https://www.instagram.com",
-            "tiktok_url": "https://www.tiktok.com",
-            "twitter_url": "https://www.twitter.com",
-            "youtube_url": "https://www.youtube.com"
+            "facebook_url": "https://www.facebook.com",
+            "linkedin_url": "https://www.linkedin.com"
           }
         }
       },
       "block_order": [
         "copyright",
-        "policy_list",
         "social_icons"
       ]
     }
