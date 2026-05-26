@@ -184,10 +184,11 @@
 
   /* Mobile overrides for announcement bar */
   @media screen and (max-width: 749px) {
+    .announcement-bar .announcement-bar__slide.custom-font-size,
     .announcement-bar .announcement-bar__slide,
     .announcement-bar__slides .announcement-bar__text {
       font-size: 0.75rem;
-      line-height: 14px;
+      line-height: calc(14 / 12);
     }
 
     .announcement-bar.spacing-style {

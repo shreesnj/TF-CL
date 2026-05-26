@@ -1203,6 +1203,24 @@
   #header-component[data-menu-style='drawer'] .header__columns header-drawer {
     grid-area: rightB;
   }
+
+  /* Left column gap override to match Figma RSL frame 30px gap */
+  .header__column--left {
+    gap: 30px;
+  }
+
+  /* Action icons gap override to match Figma Icons frame 30px gap */
+  header-actions,
+  .header-actions--text {
+    gap: 30px;
+  }
+
+  /* Mobile action icons gap override to match Figma mobile RSL 15px gap */
+  @media screen and (max-width: 749px) {
+    header-actions {
+      gap: 15px;
+    }
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
