@@ -90,20 +90,6 @@
         "padding-block-end": 72
       }
     },
-    "complete_confidence": {
-      "type": "complete-confidence",
-      "settings": {
-        "heading": "Get complete confidence in your water",
-        "button_text": "Shop All Products",
-        "button_url": "",
-        "image": "shopify://shop_images/image-12-mobile-18492742.png",
-        "gradient_opacity": 60,
-        "section_width": "full-width",
-        "color_scheme": "scheme-6",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
     "experience_RkX7mQ": {
       "type": "experience",
       "settings": {
@@ -269,17 +255,31 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "complete_confidence": {
+      "type": "complete-confidence",
+      "settings": {
+        "heading": "Get complete confidence in your water",
+        "button_text": "Shop All Products",
+        "button_url": "",
+        "image": "shopify://shop_images/image-12-mobile-18492742.png",
+        "gradient_opacity": 60,
+        "section_width": "full-width",
+        "color_scheme": "scheme-6",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
-    "complete_confidence",
     "experience_RkX7mQ",
     "clean_water_headline",
     "filtration_tech_Xk9mR2",
     "shop_by_system",
     "quiz",
     "trust",
-    "from_the_blog"
+    "from_the_blog",
+    "complete_confidence"
   ]
 }
