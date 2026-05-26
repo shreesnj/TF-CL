@@ -1,0 +1,272 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} faq color-{{ section.settings.color_scheme }} spacing-style"
+  style="{%- render 'spacing-style', settings: section.settings -%}"
+>
+  <div class="faq__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="faq__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="faq__list">
+      {%- for block in section.blocks -%}
+        {%- capture accordion_content -%}
+          <details
+            class="faq__details"
+            {{ block.shopify_attributes }}
+            {% if forloop.first %}open{% endif %}
+          >
+            <summary class="faq__summary">
+              <span class="faq__question">{{ block.settings.question }}</span>
+              <svg class="faq__chevron" width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M15 1L8 8L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <div class="details-content">
+              <div class="faq__answer">
+                {{ block.settings.answer }}
+              </div>
+            </div>
+          </details>
+        {%- endcapture -%}
+        {%- render 'accordion-custom-component',
+          children: accordion_content,
+          class: 'faq__item',
+          open_by_default_on_desktop: forloop.first,
+          open_by_default_on_mobile: forloop.first
+        -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  /* Inner wrapper */
+  .faq__inner {
+    max-width: var(--normal-page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-margin, 16px);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    @media screen and (min-width: 750px) {
+      gap: 48px;
+    }
+  }
+
+  /* Section heading */
+  .faq__heading {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 34px;
+    letter-spacing: -0.52px;
+    color: var(--color-foreground);
+    margin: 0;
+
+    @media screen and (min-width: 750px) {
+      font-size: 42px;
+      line-height: 55px;
+      letter-spacing: -0.84px;
+    }
+  }
+
+  /* FAQ list container */
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* FAQ item (accordion-custom wrapper) */
+  .faq__item {
+    border-top: 1px solid var(--color-border);
+
+    &:last-child {
+      border-bottom: 1px solid var(--color-border);
+    }
+  }
+
+  /* Details element */
+  .faq__details {
+    padding-block: 12px;
+
+    @media screen and (min-width: 750px) {
+      padding-block: 16px;
+    }
+  }
+
+  /* Summary (question row) */
+  .faq__summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::marker {
+      display: none;
+      content: '';
+    }
+  }
+
+  /* Question text */
+  .faq__question {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: -0.16px;
+    color: var(--color-foreground);
+
+    @media screen and (min-width: 750px) {
+      font-size: 20px;
+      line-height: 26px;
+      letter-spacing: -0.2px;
+    }
+  }
+
+  /* Chevron icon */
+  .faq__chevron {
+    flex-shrink: 0;
+    color: var(--color-foreground);
+    transition: transform 0.3s ease, color 0.3s ease;
+    margin-inline-start: 16px;
+  }
+
+  details[open] > .faq__summary .faq__chevron {
+    transform: rotate(180deg);
+    color: var(--color-primary);
+  }
+
+  /* Answer text */
+  .faq__answer {
+    padding-block-start: 24px;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.14px;
+    color: var(--color-foreground);
+
+    @media screen and (min-width: 750px) {
+      font-size: 18px;
+      line-height: 25px;
+      letter-spacing: 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "faq-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full width"
+        },
+        {
+          "value": "page-width",
+          "label": "Page width"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 60,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
