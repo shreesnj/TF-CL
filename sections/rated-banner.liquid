@@ -1,0 +1,193 @@
+{% liquid
+  assign gradient_opacity_decimal = section.settings.gradient_opacity | divided_by: 100.0
+  assign start_color = section.settings.gradient_color_start
+  assign end_color = section.settings.gradient_color_end
+%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="rated-banner section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
+  style="
+    {% render 'spacing-padding', settings: section.settings %};
+    --gradient-start-r: {{ start_color.red }};
+    --gradient-start-g: {{ start_color.green }};
+    --gradient-start-b: {{ start_color.blue }};
+    --gradient-end-r: {{ end_color.red }};
+    --gradient-end-g: {{ end_color.green }};
+    --gradient-end-b: {{ end_color.blue }};
+    --gradient-opacity: {{ gradient_opacity_decimal }};
+    --star-color: {{ section.settings.star_color }};
+  "
+>
+  <div class="rated-banner__content">
+    {% if section.settings.text != blank %}
+      <p class="rated-banner__text">{{ section.settings.text | escape }}</p>
+    {% endif %}
+
+    <svg
+      class="rated-banner__stars"
+      viewBox="0 0 84 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path d="M7 0L8.5716 4.83688H13.6574L9.5429 7.82624L11.1145 12.6631L7 9.67376L2.8855 12.6631L4.4571 7.82624L0.3426 4.83688H5.4284L7 0Z" fill="{{ section.settings.star_color }}"/>
+      <path d="M24.5 0L26.0716 4.83688H31.1574L27.0429 7.82624L28.6145 12.6631L24.5 9.67376L20.3855 12.6631L21.9571 7.82624L17.8426 4.83688H22.9284L24.5 0Z" fill="{{ section.settings.star_color }}"/>
+      <path d="M42 0L43.5716 4.83688H48.6574L44.5429 7.82624L46.1145 12.6631L42 9.67376L37.8855 12.6631L39.4571 7.82624L35.3426 4.83688H40.4284L42 0Z" fill="{{ section.settings.star_color }}"/>
+      <path d="M59.5 0L61.0716 4.83688H66.1574L62.0429 7.82624L63.6145 12.6631L59.5 9.67376L55.3855 12.6631L56.9571 7.82624L52.8426 4.83688H57.9284L59.5 0Z" fill="{{ section.settings.star_color }}"/>
+      <path d="M77 0L78.5716 4.83688H83.6574L79.5429 7.82624L81.1145 12.6631L77 9.67376L72.8855 12.6631L74.4571 7.82624L70.3426 4.83688H75.4284L77 0Z" fill="{{ section.settings.star_color }}"/>
+    </svg>
+  </div>
+</div>
+
+{% stylesheet %}
+  .rated-banner {
+    background: linear-gradient(
+      90deg,
+      rgba(var(--gradient-start-r), var(--gradient-start-g), var(--gradient-start-b), var(--gradient-opacity)) 0%,
+      rgba(var(--gradient-end-r), var(--gradient-end-g), var(--gradient-end-b), var(--gradient-opacity)) 100%
+    );
+    padding-block-start: var(--padding-block-start);
+    padding-block-end: var(--padding-block-end);
+  }
+
+  .rated-banner__content {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .rated-banner__text {
+    margin: 0;
+    font-size: var(--font-size--lg);
+    line-height: 25px;
+    color: var(--color-foreground);
+    text-align: center;
+  }
+
+  .rated-banner__stars {
+    width: 84px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .rated-banner__text {
+      font-size: var(--font-size--sm);
+      line-height: 20px;
+      letter-spacing: 0.14px;
+    }
+
+    .rated-banner__stars {
+      width: 63px;
+      height: 12px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Rated banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Rated 4.9 stars across 10,000+ Reviews"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#3383C5"
+    },
+    {
+      "type": "header",
+      "content": "Gradient"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_start",
+      "label": "Gradient start",
+      "default": "#C1EFFA"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_end",
+      "label": "Gradient end",
+      "default": "#8DCEF9"
+    },
+    {
+      "type": "range",
+      "id": "gradient_opacity",
+      "label": "Gradient opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full width"
+        },
+        {
+          "value": "page-width",
+          "label": "Page width"
+        }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rated banner"
+    }
+  ]
+}
+{% endschema %}
