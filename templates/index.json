@@ -7,21 +7,8 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
-    "complete_confidence": {
-      "type": "complete-confidence",
-      "settings": {
-        "heading": "Get complete confidence in your water",
-        "button_text": "Shop All Products",
-        "image": "shopify://shop_images/image-12-mobile-18492742.png",
-        "gradient_opacity": 60,
-        "section_width": "full-width",
-        "color_scheme": "scheme-6",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
     "hero_jVaWmY": {
       "type": "hero",
       "blocks": {
@@ -75,6 +62,10 @@
       "settings": {
         "media_type_1": "image",
         "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
         "link": "",
         "open_in_new_tab": false,
         "content_direction": "column",
@@ -99,6 +90,20 @@
         "padding-block-end": 72
       }
     },
+    "complete_confidence": {
+      "type": "complete-confidence",
+      "settings": {
+        "heading": "Get complete confidence in your water",
+        "button_text": "Shop All Products",
+        "button_url": "",
+        "image": "shopify://shop_images/image-12-mobile-18492742.png",
+        "gradient_opacity": 60,
+        "section_width": "full-width",
+        "color_scheme": "scheme-6",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "experience_RkX7mQ": {
       "type": "experience",
       "settings": {
@@ -109,12 +114,13 @@
         "promo_heading": "Our biggest (and best bottle) just dropped",
         "promo_body": "Go big with the bottle designed for more freedom and fewer refills. The comfort-grip handle makes it easy to grab and go, it fits standard cup holders like a glove, and it cleans every drop.",
         "button_text": "Shop 42oz Now",
-        "gradient_start": "#C1EFFA",
-        "gradient_end": "#8DCEF9",
+        "button_url": "",
+        "gradient_start": "#c1effa",
+        "gradient_end": "#8dcef9",
         "gradient_opacity": 50,
         "content_gap": 40,
-        "color_scheme": "scheme-1",
         "section_width": "full-width",
+        "color_scheme": "scheme-1",
         "padding-block-start": 48,
         "padding-block-end": 0
       }
@@ -165,10 +171,13 @@
         "heading": "Advanced filters that set a new standard",
         "body_text": "Our breakthrough filtration technology targets up to 73x more dangerous chemicals, contaminants, & toxins than typical carbon filters.",
         "primary_button_text": "Our Technology",
+        "primary_button_url": "",
         "secondary_button_text": "Lab Test Results",
+        "secondary_button_url": "",
         "filter_image": "shopify://shop_images/exploding-filter2-1200x-1-2-mobile-18492617.png",
         "background_image": "shopify://shop_images/vid-bg-mobile-18492609.png",
         "video_thumbnail": "shopify://shop_images/larq-pitcher-step-1-2-mobile-18492611.png",
+        "video_url": "",
         "video_label": "See it in action",
         "section_width": "full-width",
         "color_scheme": "scheme-5",
@@ -180,6 +189,14 @@
       "type": "shop-by-system",
       "settings": {
         "heading": "Shop by System",
+        "collection_list": [
+          "women",
+          "shirts",
+          "frontpage",
+          "gut-health",
+          "supplements",
+          "tops"
+        ],
         "columns": 4,
         "columns_gap": 32,
         "mobile_card_size": "44cqw",
@@ -191,200 +208,6 @@
         "padding-block-end": 0
       }
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
-      "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
-        }
-      },
-      "name": "t:names.featured_collection",
-      "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      }
-    },
     "quiz": {
       "type": "quiz",
       "settings": {
@@ -394,6 +217,7 @@
         "contaminants_label": "CONTAMINANTS WE REMOVE: NEW YORK",
         "contaminants_list": "Haloacetic acids (HAA5), Chromium, Chloroform, Trichloroacetic Acid, Bromoform, 1,4-Dioxane + 5 more.",
         "button_text": "Take the Quiz",
+        "button_url": "",
         "gauge_number": "14",
         "gauge_label": "TOTAL CONTAMINANTS FOUND IN:",
         "city_name": "New York City",
@@ -411,7 +235,7 @@
         "eyebrow_text": "COMPLETE CONFIDENCE IN YOUR WATER",
         "heading": "Trusted by more than 10,000+ customers.",
         "heading_highlight": "10,000+",
-        "highlight_color": "#8DCEF9",
+        "highlight_color": "#8dcef9",
         "image_left": "shopify://shop_images/screenshot-2023-03-05-at-10-11-1-mobile-18492806.png",
         "name_left": "JAKE V.",
         "image_center": "shopify://shop_images/screenshot-2023-03-05-at-10-14-2-mobile-18492811.png",
@@ -420,9 +244,10 @@
         "testimonial_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
         "reviewer_name": "ANNIE M.",
         "button_text": "Read All Reviews",
-        "gradient_start": "#2179C2",
-        "gradient_mid": "#8DCEF9",
-        "gradient_end": "#F1DCC1",
+        "button_url": "",
+        "gradient_start": "#2179c2",
+        "gradient_mid": "#8dcef9",
+        "gradient_end": "#f1dcc1",
         "gradient_opacity": 10,
         "color_scheme": "scheme-1",
         "section_width": "full-width",
@@ -433,10 +258,12 @@
     "from_the_blog": {
       "type": "from-the-blog",
       "settings": {
+        "blog": "",
         "heading": "From the Blog",
+        "posts_to_show": 3,
         "button_text": "View All",
         "mobile_button_text": "View All Articles",
-        "posts_to_show": 3,
+        "button_url": "",
         "color_scheme": "scheme-1",
         "section_width": "page-width",
         "padding-block-start": 48,
@@ -450,7 +277,6 @@
     "experience_RkX7mQ",
     "clean_water_headline",
     "filtration_tech_Xk9mR2",
-    "product_list_fa6P9H",
     "shop_by_system",
     "quiz",
     "trust",
